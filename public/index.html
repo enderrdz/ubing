@@ -1269,8 +1269,7 @@
         socket.on('number_called', (data) => {
             // Pequeño delay para asegurar que el número esté visible
             setTimeout(() => {
-                const letter = getLetterForNumber(data.num);
-                const msg = `¡Número ${letter} ${data.num}!`;
+                const msg = `${data.num}`;
                 speakNumber(msg);
             }, 500);
         });

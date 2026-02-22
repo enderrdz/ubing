@@ -18,6 +18,12 @@
     <!-- HEADER PRINCIPAL -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <header class="admin-header">
+        <!-- Último número llamado -->
+        <div class="last-number-display">
+            <span class="last-number-label">Último</span>
+            <span id="last-number-display-value" class="last-number-value">--</span>
+        </div>
+
         <div class="header-brand">
             <img src="logo.svg" alt="" class="brand-icon">
             <span class="brand-text">BINGO YOVANNY</span>
@@ -723,8 +729,7 @@
         socket.on('number_called', (data) => {
             // Pequeño delay para asegurar que el número esté visible
             setTimeout(() => {
-                const letter = getLetterForNumber(data.num);
-                const msg = `¡Número ${letter} ${data.num}!`;
+                const msg = `${data.num}`;
                 speakAdminNumber(msg);
             }, 500);
         });
@@ -949,9 +954,14 @@
             updateWinnersList(state.last5Winners);
             updatePatternDisplay();
 
+            // Actualizar último número en el display superior
             if (state.calledNumbers.length > 0) {
-                document.getElementById('roulette-number').textContent =
-                    state.calledNumbers[state.calledNumbers.length - 1];
+                const lastNum = state.calledNumbers[state.calledNumbers.length - 1];
+                document.getElementById('last-number-display-value').textContent = lastNum;
+                document.getElementById('roulette-number').textContent = lastNum;
+            } else {
+                document.getElementById('last-number-display-value').textContent = '--';
+                document.getElementById('roulette-number').textContent = '--';
             }
         });
 

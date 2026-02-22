@@ -2985,3 +2985,63 @@ input[type="range"]#admin-voice-volume::-webkit-slider-thumb:hover {
 .btn-test-voice-modern span {
     font-size: 1.2rem;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ULTIMO NUMERO - POSICION IZQUIERDA ARRIBA
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* Ajustar header para dejar espacio para el último número */
+.admin-header {
+    position: relative;
+}
+
+/* Contenedor del último número */
+.last-number-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    min-width: 120px;
+    text-align: center;
+    z-index: 10;
+    box-shadow: var(--glass-shadow);
+}
+
+.last-number-label {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--spacing-xs);
+}
+
+.last-number-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Ajustar header brand para no chocar */
+.header-brand {
+    margin-left: 140px; /* Espacio para el último número */
+}
+
+/* Responsive: Ocultar o reubicar en móviles */
+@media (max-width: 768px) {
+    .last-number-display {
+        position: static;
+        transform: none;
+        margin-bottom: var(--spacing-md);
+        order: -1;
+    }
+
+    .header-brand {
+        margin-left: 0;
+    }
+}
