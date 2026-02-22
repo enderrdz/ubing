@@ -26,6 +26,8 @@ const io = new Server(server, {
 app.use(express.json());
 app.use(express.static('public'));
 
+console.log('🚀 INICIANDO SERVER.JS (MODO PRODUCCIÓN CON MONGODB)...');
+
 // ═══════════════════════════════════════════════════════════════
 // 🔐 CONFIGURACIÓN
 // ═══════════════════════════════════════════════════════════════
@@ -90,8 +92,6 @@ const connectDB = async () => {
         process.exit(1);
     }
 };
-
-connectDB();
 
 // ═══════════════════════════════════════════════════════════════
 // 📊 ESQUEMAS MONGOOSE
@@ -1786,9 +1786,17 @@ io.on('connection', (socket) => {
 // ═══════════════════════════════════════════════════════════════
 const PORT = process.env.PORT || 3000;
 
-syncTakenCards().then(() => {
-    server.listen(PORT, () => {
-        console.log(`
+const startServer = async () => {
+    try {
+        // 1. Conectar a Base de Datos y Cargar Estado
+        await connectDB();
+        
+        // 2. Sincronizar Cartones
+        await syncTakenCards();
+
+        // 3. Iniciar Servidor HTTP
+        server.listen(PORT, () => {
+            console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
 ║   🎱  YOVANNY BINGO V15 - SISTEMA COMPLETO                   ║
@@ -1803,8 +1811,14 @@ syncTakenCards().then(() => {
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
         `);
-    });
-});
+        });
+    } catch (error) {
+        console.error('❌ Error fatal al iniciar el servidor:', error);
+        process.exit(1);
+    }
+};
+
+startServer();
 
 // Manejo de cierre graceful
 process.on('SIGINT', async () => {

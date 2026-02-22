@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "Bingo Online Realtime con MongoDB",
   "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "start": "node --max-old-space-size=450 server-local.js",
-    "dev": "node server-local.js",
+    "start": "node server.js",
+    "local": "node --max-old-space-size=450 server-local.js",
+    "dev": "node server.js",
     "fix": "node fix_structure.js",
     "repair": "node repair_project.js"
   },
