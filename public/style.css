@@ -3025,8 +3025,3 @@ input[type="range"]#admin-voice-volume::-webkit-slider-thumb:hover {
     background-clip: text;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
-
-/* Eliminar el display superior del header */
-.admin-header .last-number-display {
-    display: none;
-}
