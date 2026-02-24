@@ -98,7 +98,8 @@
                 style="display: grid; grid-template-columns: 280px 1fr 300px; gap: 12px; flex: 1; min-height: 0;">
 
                 <!-- Columna Izquierda: Siguiente Nami y Jugadores -->
-                <div class="grid-left-col" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="grid-left-col"
+                    style="display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding-right: 4px;">
 
                     <!-- Panel de Ruleta -->
                     <div class="card-white" style="text-align: center; padding: 15px;">
@@ -194,7 +195,7 @@
                             </div>
                         </div>
 
-                        <div class="numbers-board"
+                        <div class="numbers-board" id="numbers-board"
                             style="flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
                             <div class="board-header-cell" style="color: var(--bingo-b);">B</div>
                             <div class="board-header-cell" style="color: var(--bingo-i);">I</div>
@@ -1056,10 +1057,8 @@
             // Actualizar último número en el display superior
             if (state.calledNumbers.length > 0) {
                 const lastNum = state.calledNumbers[state.calledNumbers.length - 1];
-                document.getElementById('last-number-display-value').textContent = lastNum;
                 document.getElementById('roulette-number').textContent = lastNum;
             } else {
-                document.getElementById('last-number-display-value').textContent = '--';
                 document.getElementById('roulette-number').textContent = '--';
             }
         });
