@@ -881,6 +881,41 @@ app.get('/api/stats/summary', async (req, res) => {
     }
 });
 
+app.get('/api/leaderboard', async (req, res) => {
+    try {
+        const limit = Math.min(parseInt(req.query.limit) || 10, 50);
+
+        // Registered users (more reliable data)
+        const users = await User.find({ 'stats.totalGames': { $gt: 0 } })
+            .sort({ 'stats.wins': -1 })
+            .limit(limit)
+            .select('username stats level')
+            .lean();
+
+        // Active players (guests or those not yet registered)
+        const players = await Player.find({ 'stats.totalGames': { $gt: 0 } })
+            .sort({ 'stats.wins': -1 })
+            .limit(limit)
+            .select('username stats level')
+            .lean();
+
+        // Merge: registered users take priority; add players not already in list
+        const seen = new Set(users.map(u => u.username.toLowerCase()));
+        const combined = [
+            ...users,
+            ...players.filter(p => !seen.has(p.username.toLowerCase()))
+        ];
+
+        // Sort merged list by wins descending
+        combined.sort((a, b) => (b.stats?.wins || 0) - (a.stats?.wins || 0));
+
+        res.json(combined.slice(0, limit));
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 app.get('/api/assist/suggestions/:username', async (req, res) => {
     try {
         const username = req.params.username.trim();
@@ -1790,7 +1825,7 @@ const startServer = async () => {
     try {
         // 1. Conectar a Base de Datos y Cargar Estado
         await connectDB();
-        
+
         // 2. Sincronizar Cartones
         await syncTakenCards();
 

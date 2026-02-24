@@ -352,12 +352,14 @@
     <div id="game-screen" class="screen">
         <!-- Layout dividido: Cartones a la izquierda, Tablero al centro -->
         <div class="game-layout" style="display: grid; grid-template-columns: 300px 1fr; gap: 20px; height: 100vh;">
-            
+
             <!-- Panel izquierdo: Cartones -->
             <aside class="cards-panel glass-card" style="overflow-y: auto; padding: 15px;">
-                <div class="cards-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <div class="cards-header"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h4 style="margin: 0; font-size: 1rem;">🎫 Tus Cartones</h4>
-                    <span id="cards-count" class="cards-count" style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">0</span>
+                    <span id="cards-count" class="cards-count"
+                        style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">0</span>
                 </div>
                 <div id="cards-container" class="cards-grid" style="display: flex; flex-direction: column; gap: 15px;">
                     <!-- Los cartones se renderizan aquí -->
@@ -367,49 +369,75 @@
             <!-- Panel central: Tablero de números -->
             <main class="game-main" style="overflow-y: auto; padding: 15px;">
                 <!-- Header -->
-                <header class="game-header glass-card" style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 15px;">
+                <header class="game-header glass-card"
+                    style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 15px;">
                     <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
-                        <div class="avatar" style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">?</div>
+                        <div class="avatar"
+                            style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                            ?</div>
                         <div class="user-info">
-                            <span id="player-name" class="user-name" style="font-weight: 600; font-size: 0.875rem;">Jugador</span>
-                            <span class="user-status" style="font-size: 0.75rem; color: var(--success);">🟢 En línea</span>
+                            <span id="player-name" class="user-name"
+                                style="font-weight: 600; font-size: 0.875rem;">Jugador</span>
+                            <span class="user-status" style="font-size: 0.75rem; color: var(--success);">🟢 En
+                                línea</span>
                         </div>
-                        <button onclick="logoutFromGame()" class="btn-logout-game" title="Cerrar sesión" style="background: rgba(239,68,68,0.15); color: var(--danger); width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">🚪</button>
+                        <button onclick="logoutFromGame()" class="btn-logout-game" title="Cerrar sesión"
+                            style="background: rgba(239,68,68,0.15); color: var(--danger); width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">🚪</button>
                     </div>
 
                     <div class="header-center" style="text-align: center;">
                         <div class="current-ball">
-                            <span class="ball-label" style="display: block; font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">BOLA</span>
-                            <span id="current-number" class="ball-number" style="display: block; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">--</span>
+                            <span class="ball-label"
+                                style="display: block; font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">BOLA</span>
+                            <span id="current-number" class="ball-number"
+                                style="display: block; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">--</span>
                         </div>
                     </div>
 
                     <div class="header-right" style="display: flex; align-items: center; gap: 8px;">
-                        <button onclick="showCustomizeModal()" class="btn-logout-game" title="Personalizar Color" style="background: rgba(255,255,255,0.1); color: white; width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">🎨</button>
-                        <button onclick="showSettingsModal()" class="btn-logout-game" title="Configuración" style="background: rgba(255,255,255,0.1); color: white; width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">⚙️</button>
-                        <div class="mode-badge" onclick="showPatternModal()" style="cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s;">
-                            <span class="mode-label" style="display: block; font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase;">MODO</span>
-                            <span id="mode-display" class="mode-value" style="display: block; font-size: 0.75rem; font-weight: 600; color: var(--primary);">LÍNEA</span>
+                        <button onclick="showCustomizeModal()" class="btn-logout-game" title="Personalizar Color"
+                            style="background: rgba(255,255,255,0.1); color: white; width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">🎨</button>
+                        <button onclick="showSettingsModal()" class="btn-logout-game" title="Configuración"
+                            style="background: rgba(255,255,255,0.1); color: white; width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">⚙️</button>
+                        <div class="mode-badge" onclick="showPatternModal()"
+                            style="cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s;">
+                            <span class="mode-label"
+                                style="display: block; font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase;">MODO</span>
+                            <span id="mode-display" class="mode-value"
+                                style="display: block; font-size: 0.75rem; font-weight: 600; color: var(--primary);">LÍNEA</span>
                         </div>
                     </div>
                 </header>
 
                 <!-- Historial de números -->
-                <div class="history-bar glass-card" style="display: flex; align-items: center; gap: 8px; padding: 8px; margin-bottom: 15px;">
+                <div class="history-bar glass-card"
+                    style="display: flex; align-items: center; gap: 8px; padding: 8px; margin-bottom: 15px;">
                     <span class="history-label" style="font-size: 0.75rem; color: var(--text-muted);">Últimos:</span>
                     <div id="last-numbers" class="history-balls" style="display: flex; gap: 4px; flex: 1;"></div>
-                    <span id="total-called" class="total-called" style="font-size: 0.875rem; font-weight: 600; color: var(--text-secondary);">0/75</span>
+                    <span id="total-called" class="total-called"
+                        style="font-size: 0.875rem; font-weight: 600; color: var(--text-secondary);">0/75</span>
                 </div>
 
                 <!-- Tablero de números -->
-                <div class="numbers-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: var(--glass-border); padding: 2px; border-radius: 8px;">
+                <div class="numbers-board"
+                    style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: var(--glass-border); padding: 2px; border-radius: 8px;">
                     <!-- Encabezados -->
-                    <div class="board-header-cell col-B" style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-b); border-radius: 4px;">B</div>
-                    <div class="board-header-cell col-I" style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-i); border-radius: 4px;">I</div>
-                    <div class="board-header-cell col-N" style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-n); border-radius: 4px;">N</div>
-                    <div class="board-header-cell col-G" style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-g); border-radius: 4px;">G</div>
-                    <div class="board-header-cell col-O" style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-o); border-radius: 4px;">O</div>
-                    
+                    <div class="board-header-cell col-B"
+                        style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-b); border-radius: 4px;">
+                        B</div>
+                    <div class="board-header-cell col-I"
+                        style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-i); border-radius: 4px;">
+                        I</div>
+                    <div class="board-header-cell col-N"
+                        style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-n); border-radius: 4px;">
+                        N</div>
+                    <div class="board-header-cell col-G"
+                        style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-g); border-radius: 4px;">
+                        G</div>
+                    <div class="board-header-cell col-O"
+                        style="background: var(--bg-surface); padding: 8px; text-align: center; font-weight: 800; font-size: 1.25rem; color: var(--bingo-o); border-radius: 4px;">
+                        O</div>
+
                     <!-- Celdas del tablero (se generarán dinámicamente) -->
                     <div id="board-cells-container" style="grid-column: 1 / -1;"></div>
                 </div>
@@ -417,28 +445,36 @@
         </div>
 
         <!-- Barra inferior -->
-        <nav class="bottom-nav glass-card" style="position: fixed; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-around; padding: 8px 15px; background: var(--glass-bg); border-top: 1px solid var(--glass-border); z-index: 100;">
-            <button onclick="showWinnersModal()" class="nav-btn" style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
+        <nav class="bottom-nav glass-card"
+            style="position: fixed; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-around; padding: 8px 15px; background: var(--glass-bg); border-top: 1px solid var(--glass-border); z-index: 100;">
+            <button onclick="showWinnersModal()" class="nav-btn"
+                style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
                 <span class="nav-icon" style="font-size: 1.25rem;">🏆</span>
                 <span class="nav-label" style="font-size: 0.625rem; text-transform: uppercase;">Ganadores</span>
             </button>
 
-            <button onclick="toggleChat()" class="nav-btn" style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
+            <button onclick="toggleChat()" class="nav-btn"
+                style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
                 <span class="nav-icon" style="font-size: 1.25rem;">💬</span>
                 <span class="nav-label" style="font-size: 0.625rem; text-transform: uppercase;">Chat</span>
-                <div id="chat-badge" class="chat-badge hidden" style="position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem;">0</div>
+                <div id="chat-badge" class="chat-badge hidden"
+                    style="position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem;">
+                    0</div>
             </button>
 
             <div class="fab-wrapper" style="margin-top: -30px;">
-                <button onclick="shoutBingo()" class="btn-bingo pulse" id="bingo-btn" style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--danger), #dc2626); border-radius: 50%; color: white; font-weight: 900; font-size: 1rem; box-shadow: 0 10px 40px rgba(239, 68, 68, 0.4); transition: all 0.3s; animation: pulse 2s infinite;">BINGO</button>
+                <button onclick="shoutBingo()" class="btn-bingo pulse" id="bingo-btn"
+                    style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--danger), #dc2626); border-radius: 50%; color: white; font-weight: 900; font-size: 1rem; box-shadow: 0 10px 40px rgba(239, 68, 68, 0.4); transition: all 0.3s; animation: pulse 2s infinite;">BINGO</button>
             </div>
 
-            <button onclick="showAchievementsModal()" class="nav-btn" style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
+            <button onclick="showAchievementsModal()" class="nav-btn"
+                style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
                 <span class="nav-icon" style="font-size: 1.25rem;">🏅</span>
                 <span class="nav-label" style="font-size: 0.625rem; text-transform: uppercase;">Logros</span>
             </button>
 
-            <button onclick="showStatsModal()" class="nav-btn" style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
+            <button onclick="showStatsModal()" class="nav-btn"
+                style="display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; color: var(--text-secondary); padding: 8px; transition: all 0.2s;">
                 <span class="nav-icon" style="font-size: 1.25rem;">📊</span>
                 <span class="nav-label" style="font-size: 0.625rem; text-transform: uppercase;">Stats</span>
             </button>
@@ -606,39 +642,91 @@
                 <h3>📊 Mis Estadísticas</h3>
                 <button onclick="hideModal('stats-modal')" class="btn-close">✕</button>
             </div>
-            <div id="stats-content" class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-value" id="stat-games">0</span>
-                    <span class="stat-label">Partidas</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value" id="stat-wins">0</span>
-                    <span class="stat-label">Victorias</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value" id="stat-rate">0%</span>
-                    <span class="stat-label">Win Rate</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-value" id="stat-level">1</span>
-                    <span class="stat-label">Nivel</span>
-                </div>
+
+            <!-- Tabs -->
+            <div class="stats-tabs">
+                <button class="stats-tab active" id="stats-tab-mis" onclick="switchStatsTab('mis')">🎮 Mis
+                    Stats</button>
+                <button class="stats-tab" id="stats-tab-lb" onclick="switchStatsTab('lb')">🏆 Tabla</button>
             </div>
-            <!-- Barra de Progreso de Nivel -->
-            <div class="level-progress-section"
-                style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
-                <div
-                    style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;">
-                    <span>Progreso Nivel <span id="lvl-current">1</span></span>
-                    <span id="lvl-exp" style="opacity: 0.8;">0 / 100 XP</span>
-                </div>
-                <div style="height: 10px; background: rgba(0,0,0,0.3); border-radius: 5px; overflow: hidden;">
-                    <div id="lvl-bar"
-                        style="height: 100%; width: 0%; background: linear-gradient(90deg, #4f46e5, #ec4899); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+
+            <!-- Pane: Mis Stats -->
+            <div id="stats-pane-mis" class="stats-tab-pane active">
+                <div id="stats-content" class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-games">0</span>
+                        <span class="stat-label">Partidas</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-wins">0</span>
+                        <span class="stat-label">Victorias</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-rate">0%</span>
+                        <span class="stat-label">Win Rate</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-level">1</span>
+                        <span class="stat-label">Nivel</span>
                     </div>
                 </div>
+
+                <!-- Barra de Progreso de Nivel -->
+                <div class="level-progress-section"
+                    style="margin: 0.5rem 1rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600;">
+                        <span>Progreso Nivel <span id="lvl-current">1</span></span>
+                        <span id="lvl-exp" style="opacity: 0.8;">0 / 100 XP</span>
+                    </div>
+                    <div style="height: 8px; background: rgba(0,0,0,0.3); border-radius: 5px; overflow: hidden;">
+                        <div id="lvl-bar"
+                            style="height: 100%; width: 0%; background: linear-gradient(90deg, #4f46e5, #ec4899); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extra stats: streak, points, time -->
+                <div class="stats-extras">
+                    <div class="stats-extra-item">
+                        <span class="extra-label">🔥 Racha actual</span>
+                        <span class="extra-value" id="stat-streak">0</span>
+                    </div>
+                    <div class="stats-extra-item">
+                        <span class="extra-label">⚡ Mejor racha</span>
+                        <span class="extra-value" id="stat-maxstreak">0</span>
+                    </div>
+                    <div class="stats-extra-item">
+                        <span class="extra-label">⭐ Puntos totales</span>
+                        <span class="extra-value" id="stat-points">0</span>
+                    </div>
+                    <div class="stats-extra-item">
+                        <span class="extra-label">⏱️ Tiempo jugado</span>
+                        <span class="extra-value" id="stat-time">0 min</span>
+                    </div>
+                </div>
+
+                <!-- Fav numbers -->
+                <p class="stats-modal-section-title" style="margin-top:0.6rem;">🎲 Números frecuentes</p>
+                <div id="fav-numbers" class="fav-numbers"><span class="stats-hint" style="padding:0.4rem;">Sin datos
+                        aún</span></div>
+
+                <!-- Achievements preview -->
+                <p class="stats-modal-section-title">🏅 Últimos logros</p>
+                <div class="stats-achievements-preview" id="stats-achievements-preview" style="padding: 0 1rem 1rem;">
+                </div>
             </div>
-            <div class="stats-achievements-preview" id="stats-achievements-preview"></div>
+
+            <!-- Pane: Leaderboard -->
+            <div id="stats-pane-lb" class="stats-tab-pane">
+                <div class="leaderboard-section">
+                    <div class="leaderboard-header">
+                        <h4>Top Jugadores</h4>
+                        <span id="lb-loading" style="font-size:0.75rem; color:var(--text-muted);">Cargando…</span>
+                    </div>
+                    <div id="leaderboard-list" class="leaderboard-list"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1609,8 +1697,52 @@
             container.scrollTop = container.scrollHeight;
         }
 
+        // ── Stats Modal Tab Switching ──────────────────────────────────────
+        function switchStatsTab(tab) {
+            ['mis', 'lb'].forEach(t => {
+                document.getElementById(`stats-tab-${t}`).classList.toggle('active', t === tab);
+                document.getElementById(`stats-pane-${t}`).classList.toggle('active', t === tab);
+            });
+            if (tab === 'lb') loadLeaderboard();
+        }
+
+        async function loadLeaderboard() {
+            const list = document.getElementById('leaderboard-list');
+            const loading = document.getElementById('lb-loading');
+            const me = playerSession?.username || '';
+            loading.textContent = 'Cargando…';
+            try {
+                const r = await fetch('/api/leaderboard');
+                const d = await r.json();
+                const entries = Array.isArray(d) ? d : (d.leaderboard || []);
+                loading.textContent = '';
+                if (!entries.length) {
+                    list.innerHTML = '<p class="lb-empty">Sin datos aún. ¡Juega para aparecer aquí! 🎮</p>';
+                    return;
+                }
+                const medals = ['🥇', '🥈', '🥉'];
+                list.innerHTML = entries.slice(0, 10).map((p, i) => {
+                    const isMe = p.username?.toLowerCase() === me.toLowerCase();
+                    const rank = medals[i] || `${i + 1}`;
+                    return `<div class="leaderboard-item">
+                        <span class="lb-rank">${rank}</span>
+                        <span class="lb-name ${isMe ? 'is-me' : ''}">${p.username || p.name || '?'} ${isMe ? '🟣' : ''}</span>
+                        <span class="lb-wins">${p.stats?.wins || p.wins || 0} 🏆</span>
+                        <span class="lb-level">Nv.${p.level?.current || p.level || 1}</span>
+                    </div>`;
+                }).join('');
+            } catch (e) {
+                loading.textContent = '';
+                list.innerHTML = '<p class="lb-empty">Error al cargar tabla</p>';
+            }
+        }
+
+        // ── Stats Modal ────────────────────────────────────────────────────
         async function showStatsModal() {
             showModal('stats-modal');
+            // Always start on Mis Stats tab
+            switchStatsTab('mis');
+
             const username = playerSession?.username;
             if (!username) {
                 document.getElementById('stat-games').textContent = '0';
@@ -1623,32 +1755,53 @@
             try {
                 const r = await fetch('/api/stats/' + encodeURIComponent(username));
                 const d = await r.json();
-                if (d.stats) {
-                    document.getElementById('stat-games').textContent = d.stats.totalGames || 0;
-                    document.getElementById('stat-wins').textContent = d.stats.wins || 0;
-                    document.getElementById('stat-rate').textContent = `${Math.round(d.stats.winRate || 0)}%`;
-                }
-                if (d.level) {
-                    document.getElementById('stat-level').textContent = d.level.current || 1;
-                    document.getElementById('lvl-current').textContent = d.level.current || 1;
+                const s = d.stats || {};
+                const lv = d.level || {};
 
-                    const exp = d.level.exp || 0;
-                    const next = d.level.expToNext || 100;
-                    document.getElementById('lvl-exp').textContent = `${exp} / ${next} XP`;
-                    const pct = Math.min(100, Math.max(0, (exp / next) * 100));
-                    document.getElementById('lvl-bar').style.width = `${pct}%`;
-                }
+                // Main stats
+                document.getElementById('stat-games').textContent = s.totalGames || 0;
+                document.getElementById('stat-wins').textContent = s.wins || 0;
+                document.getElementById('stat-rate').textContent = `${Math.round(s.winRate || 0)}%`;
+                document.getElementById('stat-level').textContent = lv.current || 1;
+
+                // XP bar
+                document.getElementById('lvl-current').textContent = lv.current || 1;
+                const exp = lv.exp || 0;
+                const next = lv.expToNext || 100;
+                document.getElementById('lvl-exp').textContent = `${exp} / ${next} XP`;
+                document.getElementById('lvl-bar').style.width = `${Math.min(100, Math.max(0, (exp / next) * 100))}%`;
+
+                // Extra stats
+                document.getElementById('stat-streak').textContent = s.currentStreak || 0;
+                document.getElementById('stat-maxstreak').textContent = s.maxStreak || 0;
+                document.getElementById('stat-points').textContent = (s.totalPoints || 0).toLocaleString();
+                document.getElementById('stat-time').textContent = `${s.totalPlayTime || 0} min`;
+
+                // Favorite numbers
+                const favEl = document.getElementById('fav-numbers');
+                const favNums = s.favoriteNumbers || [];
+                favEl.innerHTML = favNums.length
+                    ? favNums.slice(0, 10).map(n => `<span class="fav-num">${n}</span>`).join('')
+                    : '<span class="stats-hint" style="padding:0.4rem;">Sin datos aún</span>';
+
+                // Achievements preview
                 const ach = d.achievements || [];
-                const preview = ach.slice(0, 6).map(a => `<span class="ach-badge" title="${a.name}">${ALL_ACHIEVEMENTS.find(x => x.name === a.name)?.icon || '🏅'} ${a.name}</span>`).join('');
-                document.getElementById('stats-achievements-preview').innerHTML = preview ? `<div class="ach-preview">${preview}</div><button onclick="showAchievementsModal(); hideModal('stats-modal');" class="btn-link">Ver todos los logros →</button>` : '<p class="stats-hint">Sin logros aún</p>';
+                const preview = ach.slice(0, 6).map(a =>
+                    `<span class="ach-badge" title="${a.name}">${ALL_ACHIEVEMENTS.find(x => x.name === a.name)?.icon || '🏅'} ${a.name}</span>`
+                ).join('');
+                document.getElementById('stats-achievements-preview').innerHTML = preview
+                    ? `<div class="ach-preview">${preview}</div><button onclick="showAchievementsModal(); hideModal('stats-modal');" class="btn-link" style="margin-top:0.5rem;">Ver todos los logros →</button>`
+                    : '<p class="stats-hint">Sin logros aún · ¡Juega para ganarlos!</p>';
             } catch (e) {
-                document.getElementById('stats-achievements-preview').innerHTML = '<p class="stats-hint">No se pudieron cargar</p>';
+                document.getElementById('stats-achievements-preview').innerHTML = '<p class="stats-hint">No se pudieron cargar las estadísticas</p>';
             }
         }
 
+        // ── Achievements Modal ─────────────────────────────────────────────
         async function showAchievementsModal() {
             showModal('achievements-modal');
             const grid = document.getElementById('achievements-grid');
+            const header = document.querySelector('#achievements-modal .modal-header h3');
             const username = playerSession?.username;
             let achieved = [];
             if (username) {
@@ -1658,6 +1811,7 @@
                     achieved = (d.achievements || []).map(a => a.name);
                 } catch (e) { }
             }
+            if (header) header.textContent = `🏅 Logros (${achieved.length}/${ALL_ACHIEVEMENTS.length})`;
             grid.innerHTML = ALL_ACHIEVEMENTS.map(a => {
                 const unlocked = achieved.includes(a.name);
                 return `<div class="achievement-item ${unlocked ? 'unlocked' : 'locked'}">
@@ -1671,11 +1825,16 @@
             }).join('');
         }
 
+        // ── Achievement Toast ──────────────────────────────────────────────
         function showAchievementToast(name) {
             const toast = document.getElementById('achievement-toast');
             document.getElementById('achievement-toast-name').textContent = name;
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 4000);
+            // Force bounce re-animation
+            const icon = toast.querySelector('.toast-icon');
+            if (icon) { icon.style.animation = 'none'; void icon.offsetWidth; icon.style.animation = ''; }
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => toast.classList.add('hidden'), 4500);
         }
 
         function updateWinnersList(winners) {
