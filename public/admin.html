@@ -16,7 +16,11 @@
 <body class="admin-app">
     <div class="app-container">
 
-        <aside class="app-sidebar">
+        <aside class="app-sidebar" id="sidebar">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()"
+                style="position: absolute; right: -15px; top: 30px; width: 30px; height: 30px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 101; cursor: pointer;">
+                ❮
+            </button>
             <div class="sidebar-brand">
                 <div class="brand-circle"
                     style="width: 40px; height: 40px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: 900; font-size: 1.5rem;">
@@ -25,31 +29,31 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link active" onclick="switchActiveTab('dashboard')">
                     <span class="nav-icon">📊</span>
-                    Dashboard
+                    <span>Dashboard</span>
                 </a>
                 <a href="#" class="nav-link" onclick="switchTab('active')">
                     <span class="nav-icon">👥</span>
-                    Jugadores
+                    <span>Jugadores</span>
                 </a>
-                <a href="#" class="nav-link" ontouchstart="showCardStatusModal()" onclick="showCardStatusModal()">
+                <a href="#" class="nav-link" onclick="showCardStatusModal()">
                     <span class="nav-icon">🎫</span>
-                    Cartones
+                    <span>Cartones</span>
                 </a>
                 <a href="#" class="nav-link" onclick="showPatternsModal()">
                     <span class="nav-icon">🎯</span>
-                    Patrones
+                    <span>Patrones</span>
                 </a>
                 <a href="#" class="nav-link" onclick="toggleChat()">
                     <span class="nav-icon">💬</span>
-                    Chat <span id="chat-badge" class="chat-badge hidden">0</span>
+                    <span>Chat</span> <span id="chat-badge" class="chat-badge hidden">0</span>
                 </a>
             </nav>
 
             <div class="sidebar-footer">
                 <a href="/admin-login.html" class="btn-go-out">
-                    <span>🚪</span> Go Out
+                    <span class="nav-icon">🚪</span> <span>Go Out</span>
                 </a>
             </div>
         </aside>
@@ -81,7 +85,7 @@
             <div class="admin-grid"
                 style="display: grid; grid-template-columns: 280px 1fr 300px; gap: 12px; flex: 1; min-height: 0;">
 
-                <!-- Columna Izquierda: Siguiente Nami y Controles -->
+                <!-- Columna Izquierda: Siguiente Nami y Jugadores -->
                 <div class="grid-left-col" style="display: flex; flex-direction: column; gap: 12px;">
 
                     <!-- Panel de Ruleta -->
@@ -90,7 +94,7 @@
                         </h4>
                         <div class="roulette-display">
                             <div id="roulette-wheel" class="roulette-wheel"
-                                style="width: 100px; height: 100px; border: 6px solid var(--bg-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; margin: 0 auto;">
+                                style="width: 100px; height: 100px; border: 6px solid var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); margin: 0 auto;">
                                 <span id="roulette-number"
                                     style="font-size: 2.5rem; font-weight: 900; color: var(--primary);">--</span>
                             </div>
@@ -100,47 +104,43 @@
                         </div>
                     </div>
 
-                    <!-- Controles de Juego -->
-                    <div class="card-white" style="padding: 15px;">
-                        <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">⚡ Controles
-                        </h4>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <button onclick="callNumber()" class="btn-primary"
-                                style="width: 100%; height: 44px; font-size: 1rem; border-radius: 12px;">LLAMAR</button>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                <button onclick="undoNumber()" class="card-white"
-                                    style="padding: 8px; font-size: 0.8rem; border: 1px solid var(--glass-border);">↩️</button>
-                                <button onclick="toggleAuto()" id="auto-btn" class="card-white"
-                                    style="padding: 8px; font-size: 0.8rem; border: 1px solid var(--glass-border);">▶️
-                                    Auto</button>
+                    <!-- Lista de Jugadores (Movida aquí para acceso rápido) -->
+                    <div class="card-white"
+                        style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px; min-height: 250px;">
+                        <div class="tabs" style="margin-bottom: 8px;">
+                            <button class="active" onclick="switchTab('pending')"
+                                style="padding: 6px; font-size: 0.75rem;">⌛ <span id="pending-badge">0</span></button>
+                            <button onclick="switchTab('active')" style="padding: 6px; font-size: 0.75rem;">👥 <span
+                                    id="active-badge">0</span></button>
+                            <button onclick="switchTab('winners')" style="padding: 6px; font-size: 0.75rem;">🏆</button>
+                        </div>
+
+                        <div id="tab-container" style="flex: 1; overflow-y: auto;">
+                            <div id="pending-tab" class="tab-content active">
+                                <ul id="pending-list" class="player-list"></ul>
+                            </div>
+                            <div id="active-tab" class="tab-content" style="display: none;">
+                                <ul id="active-list" class="player-list"></ul>
+                            </div>
+                            <div id="winners-tab" class="tab-content" style="display: none;">
+                                <ul id="winners-list" class="player-list"></ul>
                             </div>
                         </div>
+
+                        <button onclick="showAddPlayerModal()" class="btn-primary"
+                            style="margin-top: 8px; font-size: 0.8rem; height: 32px; padding: 0;">➕ Jugador</button>
                     </div>
 
-                    <!-- Patrón en Juego -->
-                    <div class="card-white" style="text-align: center; padding: 15px;">
-                        <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">🎯 Patrón
-                        </h4>
-                        <div id="current-pattern-grid" class="mini-pattern-grid"
-                            style="margin: 0 auto 10px; width: 80px; height: 80px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
-                        </div>
-                        <span id="current-pattern-name"
-                            style="display: block; font-weight: 800; font-size: 0.9rem; color: var(--primary);">LÍNEA</span>
-                        <button onclick="showPatternSelector()" class="btn-primary"
-                            style="width: 100%; font-size: 0.75rem; margin-top: 5px; height: 32px;">Cambiar</button>
-                    </div>
-
-                    <!-- Panel de Voz (Compacto) -->
+                    <!-- Controles de Juego -->
                     <div class="card-white" style="padding: 12px;">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <h4 style="color: var(--text-secondary); font-size: 0.8rem;">🔊 Audio</h4>
-                            <span id="admin-volume-display"
-                                style="font-size: 0.75rem; color: var(--text-muted);">80%</span>
+                        <button onclick="callNumber()" class="btn-primary"
+                            style="width: 100%; height: 40px; font-size: 1rem; border-radius: 12px; margin-bottom: 8px;">LLAMAR</button>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <button onclick="undoNumber()" class="card-white"
+                                style="padding: 6px; font-size: 0.8rem;">↩️</button>
+                            <button onclick="toggleAuto()" id="auto-btn" class="card-white"
+                                style="padding: 6px; font-size: 0.8rem;">▶️ Auto</button>
                         </div>
-                        <input type="range" id="admin-voice-volume" min="0" max="100" value="80"
-                            oninput="setAdminVoiceVolume(this.value)"
-                            style="width: 100%; height: 4px; accent-color: var(--primary);">
                     </div>
                 </div>
 
@@ -173,34 +173,42 @@
                     </div>
                 </div>
 
-                <!-- Columna Derecha: Jugadores -->
+                <!-- Columna Derecha: Patrón y Audio -->
                 <div class="grid-right-col" style="display: flex; flex-direction: column; gap: 12px; min-height: 0;">
-                    <div class="card-white"
-                        style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px;">
-                        <div class="tabs" style="margin-bottom: 8px;">
-                            <button class="tab active" onclick="switchTab('pending')"
-                                style="padding: 6px; font-size: 0.75rem;">⌛ <span id="pending-badge">0</span></button>
-                            <button class="tab" onclick="switchTab('active')"
-                                style="padding: 6px; font-size: 0.75rem;">👥 <span id="active-badge">0</span></button>
-                            <button class="tab" onclick="switchTab('winners')"
-                                style="padding: 6px; font-size: 0.75rem;">🏆</button>
-                        </div>
 
-                        <div id="tab-container" style="flex: 1; overflow-y: auto; padding-right: 5px;">
-                            <div id="pending-tab" class="tab-content active">
-                                <ul id="pending-list" class="player-list"></ul>
-                            </div>
-                            <div id="active-tab" class="tab-content" style="display: none;">
-                                <ul id="active-list" class="player-list"></ul>
-                            </div>
-                            <div id="winners-tab" class="tab-content" style="display: none;">
-                                <ul id="winners-list" class="player-list"></ul>
-                            </div>
+                    <!-- Patrón Actual (Movido aquí) -->
+                    <div class="card-white" style="text-align: center; padding: 15px;">
+                        <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">🎯 Patrón
+                        </h4>
+                        <div id="current-pattern-grid" class="mini-pattern-grid"
+                            style="margin: 0 auto 10px; width: 100px; height: 100px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
                         </div>
+                        <span id="current-pattern-name"
+                            style="display: block; font-weight: 800; font-size: 1.1rem; color: var(--primary);">LÍNEA</span>
+                        <button onclick="showPatternSelector()" class="btn-primary"
+                            style="width: 100%; font-size: 0.85rem; margin-top: 10px;">Cambiar Figura</button>
+                    </div>
 
-                        <button onclick="showAddPlayerModal()" class="btn-primary"
-                            style="margin-top: 8px; background: var(--bg-soft); color: var(--primary); border: 1px dashed var(--primary-glow); box-shadow: none; font-size: 0.8rem; height: 32px; padding: 0;">➕
-                            Jugador</button>
+                    <!-- Panel de Voz -->
+                    <div class="card-white" style="padding: 12px;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4 style="color: var(--text-secondary); font-size: 0.85rem;">🔊 Locución</h4>
+                            <span id="admin-volume-display"
+                                style="font-size: 0.8rem; color: var(--text-muted);">80%</span>
+                        </div>
+                        <select id="admin-voice-selector" onchange="updateSelectedVoice()" class="card-white"
+                            style="width: 100%; padding: 6px; background: rgba(255,255,255,0.03); font-size: 0.8rem; margin-bottom: 10px;">
+                            <option value="">Automática</option>
+                        </select>
+                        <input type="range" id="admin-voice-volume" min="0" max="100" value="80"
+                            oninput="setAdminVoiceVolume(this.value)"
+                            style="width: 100%; accent-color: var(--primary);">
+                    </div>
+
+                    <div
+                        style="margin-top: auto; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 12px; font-size: 0.7rem; color: var(--text-muted);">
+                        Stream Mode Active • Low Latency
                     </div>
                 </div>
 
@@ -467,6 +475,23 @@
         // ═══════════════════════════════════════════════════════════════
         // UI: TABS
         // ═══════════════════════════════════════════════════════════════
+        // ═══════════════════════════════════════════════════════════════
+        // UI: SIDEBAR & NAVIGATION
+        // ═══════════════════════════════════════════════════════════════
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const btn = document.querySelector('.sidebar-toggle-btn');
+            sidebar.classList.toggle('collapsed');
+            btn.textContent = sidebar.classList.contains('collapsed') ? '❯' : '❮';
+        }
+
+        function switchActiveTab(tabId) {
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const link = document.querySelector(`[onclick*="switchActiveTab('${tabId}')"]`);
+            if (link) link.classList.add('active');
+            // Aquí podrías implementar cambio de vistas reales si fuera necesario
+        }
+
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => {
