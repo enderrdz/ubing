@@ -1171,10 +1171,12 @@
                 const bottomNav = document.querySelector('.bottom-nav');
 
                 if (id === 'game-screen') {
-                    authLayout.style.display = 'none';
-                    gameScreen.classList.add('active');
-                    gameScreen.style.display = 'block';
-                    bottomNav.classList.remove('hidden');
+                    if (authLayout) authLayout.style.display = 'none';
+                    if (gameScreen) {
+                        gameScreen.classList.add('active');
+                        gameScreen.style.display = 'block';
+                    }
+                    if (bottomNav) bottomNav.classList.remove('hidden');
                     // Seguridad extra: ocultar todos los paneles internos
                     document.querySelectorAll('.auth-panel').forEach(p => p.classList.add('hidden'));
                     requestWakeLock();
@@ -1182,14 +1184,15 @@
                 }
 
                 // MODO AUTH/ESPERA: Ocultar juego estrictamente
-                gameScreen.style.display = 'none';
-                gameScreen.classList.remove('active');
-                authLayout.style.display = 'grid';
-                bottomNav.classList.add('hidden');
-
-                if (gameScreen.classList.contains('active')) {
-                    releaseWakeLock();
+                if (gameScreen) {
+                    gameScreen.style.display = 'none';
+                    if (gameScreen.classList.contains('active')) {
+                        gameScreen.classList.remove('active');
+                        releaseWakeLock();
+                    }
                 }
+                if (authLayout) authLayout.style.display = 'grid';
+                if (bottomNav) bottomNav.classList.add('hidden');
 
                 // Ocultar todos los paneles internos de auth
                 document.querySelectorAll('.auth-panel').forEach(p => p.classList.add('hidden'));

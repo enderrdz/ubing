@@ -96,6 +96,11 @@ body {
     position: relative;
 }
 
+/* 🛠️ Utility Classes */
+.hidden {
+    display: none !important;
+}
+
 /* Base Layout Structure - Split into Sidebar and Main */
 .app-container {
     display: flex;
@@ -165,6 +170,24 @@ a {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Card Styles - Premium Glass Variant */
+.auth-card {
+    background: var(--bg-soft);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+    min-height: auto;
+    /* Permite que crezca según contenido */
+}
+
 .card-white {
     background: var(--bg-soft);
     backdrop-filter: blur(var(--glass-blur));
@@ -174,6 +197,10 @@ a {
     box-shadow: var(--glass-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     color: var(--text-primary);
+}
+
+.bottom-nav.hidden {
+    display: none !important;
 }
 
 .card-white:hover {
@@ -628,10 +655,33 @@ input:focus {
     justify-content: center;
     align-items: center;
     padding: var(--spacing-xl);
-    background: var(--bg-white);
+    background: var(--bg-dark);
+    /* Cambiado a dark para ser consistente */
     position: relative;
     z-index: 10;
-    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.03);
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.2);
+    border-right: 1px solid var(--glass-border);
+}
+
+.auth-panel {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .split-right {
