@@ -908,17 +908,30 @@
                 return;
             }
 
-            list.innerHTML = players.map(p => `
-                <li class="player-item">
-                    <div class="player-info">
-                        <span class="player-name">${p.name} <span class="status-badge ${p.status === 'online' ? 'online' : 'offline'}">${p.status === 'online' ? '🟢' : '⚫'}</span></span>
-                        <span class="player-cards">${p.cardCount} cartón(es)</span>
-                    </div>
-                    <div class="player-actions">
-                        <button onclick="kickPlayer(${p.status === 'online' ? `'${p.id}'` : `{username: '${p.name}'}`})" class="btn-kick" title="Eliminar">🚫</button>
-                    </div>
-                </li>
-            `).join('');
+            list.innerHTML = players.map(p => {
+                const isOnline = p.status === 'online';
+                const cardList = p.cardIds && p.cardIds.length > 0 ? `#${p.cardIds.join(', #')}` : 'Sin cartones';
+
+                return `
+                    <li class="player-item">
+                        <div class="player-info" style="flex: 1; min-width: 0;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                <span class="player-name" style="font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</span>
+                                <span class="status-badge ${p.status}" style="font-size: 0.7rem; opacity: 0.8;">${isOnline ? '🟢' : '⚫'}</span>
+                            </div>
+                            <span class="player-cards" style="font-size: 0.75rem; color: var(--text-muted); display: block;">
+                                ${p.cardCount} cartón(es): <span style="color: var(--primary-light);">${cardList}</span>
+                            </span>
+                        </div>
+                        <div class="player-actions" style="margin-left: 10px;">
+                            <button onclick="kickPlayer(${isOnline ? `'${p.id}'` : `{username: '${p.name}'}`})" 
+                                    class="btn-reject" 
+                                    style="padding: 4px 8px; font-size: 0.8rem;" 
+                                    title="Eliminar del sistema">🚫</button>
+                        </div>
+                    </li>
+                `;
+            }).join('');
         }
 
         function updateWinnersList(winners) {

@@ -754,6 +754,7 @@ async function getActivePlayers() {
             id: s.id,
             name: s.data.username,
             cardCount: s.data.cardIds?.length || 0,
+            cardIds: s.data.cardIds || [],
             status: 'online'
         }));
 
