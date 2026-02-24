@@ -2389,12 +2389,14 @@ input:focus {
 }
 
 /* 📏 Auto-Scaling Board (Zero Scroll) */
+/* 📏 Auto-Scaling Board (Admin Dashboard) */
 .numbers-board {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 2px;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
 }
 
 .board-grid {
@@ -2411,8 +2413,8 @@ input:focus {
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: min(1.8vh, 0.9rem);
-    /* Scaled for board fit */
+    font-size: min(1.8vh, 0.85rem);
+    /* Proportional to viewport height */
     color: var(--text-secondary);
     border-radius: 4px;
     border: 1px solid var(--glass-border);
@@ -2422,14 +2424,15 @@ input:focus {
 }
 
 .board-header-cell {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
+    font-weight: 950;
     font-size: min(2vh, 1rem);
-    border-radius: 1px;
+    border-radius: 4px;
     height: 100%;
+    color: white;
 }
 
 .board-header-cell {

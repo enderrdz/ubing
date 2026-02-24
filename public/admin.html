@@ -22,6 +22,9 @@
 </head>
 
 <body class="admin-app">
+    <!-- 🎈 Fondo Animado -->
+    <canvas id="liquid-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.12; z-index: -1;"></canvas>
     <div class="app-container">
 
         <aside class="app-sidebar" id="sidebar">
@@ -164,38 +167,48 @@
                 </div>
 
                 <!-- Columna Central: Historial y Tablero -->
-                <div class="grid-center-col" style="display: flex; flex-direction: column; gap: 12px; min-height: 0;">
+                <div class="grid-center-col" style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
 
-                    <!-- Historial CENTRAL (Streaming) -->
-                    <div class="card-white" style="text-align: center; padding: 10px;">
-                        <h4 style="color: var(--text-secondary); margin-bottom: 8px; font-size: 0.9rem;">🔴 NÚMEROS
-                            JUGADOS (HISTORIAL)</h4>
-                        <div id="last-numbers" class="balls-row-centered"></div>
+                    <!-- Historial Superior -->
+                    <div class="card-white" style="padding: 10px; text-align: center;">
+                        <h4
+                            style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 800; letter-spacing: 1px;">
+                            🔴 NÚMEROS JUGADOS (HISTORIAL)</h4>
+                        <div id="last-numbers" class="balls-row-centered" style="min-height: 45px;"></div>
                     </div>
 
-                    <!-- Tablero de Números -->
+                    <!-- Tablero de Bingo (REPARADO: CUADRÍCULA 5 COLUMNAS) -->
                     <div class="card-white"
-                        style="flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 15px;">
+                        style="flex: 1; display: flex; flex-direction: column; padding: 12px; overflow: hidden;">
                         <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <h4 style="color: var(--text-secondary); font-size: 0.9rem;">🔢 TABLERO</h4>
-                            <div style="display: flex; gap: 8px;">
-                                <button onclick="newRound()" class="card-white"
-                                    style="padding: 5px 12px; font-size: 0.7rem; color: var(--warning); border: 1px solid var(--warning);">🔄
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <h4 style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 700;">🔢 TABLERO
+                            </h4>
+                            <div style="display: flex; gap: 6px;">
+                                <button onclick="newRound()" class="btn-primary"
+                                    style="padding: 4px 10px; font-size: 0.65rem; background: var(--secondary); height: 24px;">🔄
                                     Nueva Ronda</button>
-                                <button onclick="fullReset()" class="card-white"
-                                    style="padding: 5px 12px; font-size: 0.7rem; color: var(--danger); border: 1px solid var(--danger);">⚠️
+                                <button onclick="fullReset()" class="btn-primary"
+                                    style="padding: 4px 10px; font-size: 0.65rem; background: #e11d48; height: 24px;">⚠️
                                     Reinicio</button>
                             </div>
                         </div>
-                        <div id="numbers-board" class="numbers-board" style="flex: 1; overflow-y: auto;"></div>
+
+                        <div class="numbers-board"
+                            style="flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
+                            <div class="board-header-cell" style="color: var(--bingo-b);">B</div>
+                            <div class="board-header-cell" style="color: var(--bingo-i);">I</div>
+                            <div class="board-header-cell" style="color: var(--bingo-n);">N</div>
+                            <div class="board-header-cell" style="color: var(--bingo-g);">G</div>
+                            <div class="board-header-cell" style="color: var(--bingo-o);">O</div>
+                            <!-- Celdas generadas por JS aquí directamente -->
+                        </div>
                     </div>
                 </div>
-
                 <!-- Columna Derecha: Patrón y Audio -->
                 <div class="grid-right-col" style="display: flex; flex-direction: column; gap: 12px; min-height: 0;">
 
-                    <!-- Patrón Actual (Movido aquí) -->
+                    <!-- Patrón Actual -->
                     <div class="card-white" style="text-align: center; padding: 15px;">
                         <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">🎯 Patrón
                         </h4>
@@ -226,17 +239,13 @@
                     </div>
 
                     <div
-                        style="margin-top: auto; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 12px; font-size: 0.7rem; color: var(--text-muted);">
-                        Stream Mode Active • Low Latency
+                        style="margin-top: auto; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 12px; font-size: 0.7rem; color: var(--text-muted); text-align: center;">
+                        Mode: Stream • Low Latency
                     </div>
                 </div>
-
             </div> <!-- FIN ADMIN GRID -->
-    </div>
-
-    </div>
-    </main>
-    </div>
+        </main>
+    </div> <!-- FIN APP CONTAINER -->
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- MODALES -->
