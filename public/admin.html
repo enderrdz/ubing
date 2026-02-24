@@ -51,23 +51,22 @@
              PANEL IZQUIERDO: JUGADORES Y GANADORES
         ────────────────────────────────────────────────────────────── -->
         <section class="panel-left">
-            <!-- Último número llamado (panel izquierdo) -->
+            <!-- Últimos números y Ruleta (Movido desde el centro) -->
             <div class="last-number-panel glass-card">
-                <div class="last-number-header">
-                    <h4>Último Número</h4>
-                </div>
-                <div class="last-number-content">
-                    <span id="last-number-display-value" class="last-number-value">--</span>
-                </div>
-            </div>
-
-            <!-- Últimos números llamados (panel izquierdo) -->
-            <div class="last-balls-panel glass-card">
-                <div class="last-balls-header">
-                    <h4>Últimos Números</h4>
-                </div>
-                <div class="last-balls-content">
+                <div class="last-balls-minimal">
+                    <span class="label">Últimos:</span>
                     <div id="last-numbers" class="balls-row"></div>
+                </div>
+
+                <div class="roulette-box roulette-box-mini">
+                    <div class="roulette-display">
+                        <div id="roulette-wheel" class="roulette-wheel">
+                            <span id="roulette-number" class="roulette-number">--</span>
+                        </div>
+                        <div class="roulette-stats">
+                            <span id="called-count">0</span>/75 números
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -167,21 +166,7 @@
                 <!-- Los números se generan por JS -->
             </div>
 
-            <div class="last-balls">
-                <span class="label">Últimos:</span>
-                <div id="last-numbers" class="balls-row"></div>
-            </div>
 
-            <div class="roulette-box roulette-box-mini">
-                <div class="roulette-display">
-                    <div id="roulette-wheel" class="roulette-wheel">
-                        <span id="roulette-number" class="roulette-number">--</span>
-                    </div>
-                    <div class="roulette-stats">
-                        <span id="called-count">0</span>/75 números
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- ─────────────────────────────────────────────────────────────
