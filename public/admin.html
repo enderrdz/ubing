@@ -827,9 +827,11 @@
             localStorage.removeItem('bingo_admin_session');
             window.location.href = '/admin-login.html';
         }
-        if (confirm('¿Iniciar nueva ronda? Se borrarán los números llamados.')) {
-            socket.emit('admin_reset');
-        }
+
+        function newRound() {
+            if (confirm('¿Iniciar nueva ronda? Se borrarán los números llamados.')) {
+                socket.emit('admin_reset');
+            }
         }
 
         function fullReset() {
