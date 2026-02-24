@@ -100,8 +100,21 @@ body {
 .app-container {
     display: flex;
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
     background: var(--bg-main);
+}
+
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 80px;
+    /* Margen de seguridad inferior */
 }
 
 /* 🌈 Global Particle Effects / Soft Glows */
@@ -233,8 +246,15 @@ a {
 
 .grid-right-col {
     position: sticky;
-    top: 24px;
-    height: calc(100vh - 120px);
+    top: 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.numbers-board {
+    padding-bottom: 20px;
 }
 
 
@@ -2442,14 +2462,15 @@ input:focus {
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: min(1.8vh, 0.9rem);
+    font-size: min(1.6vh, 0.85rem);
     color: var(--text-secondary);
-    border-radius: 6px;
+    border-radius: 4px;
     border: 1px solid var(--glass-border);
     transition: all 0.3s var(--spring-easing);
     cursor: pointer;
     min-height: 0;
-    padding: 4px;
+    aspect-ratio: auto;
+    padding: 2px 0;
 }
 
 .board-cell:hover {
