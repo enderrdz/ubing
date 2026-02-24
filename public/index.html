@@ -403,44 +403,25 @@
                 <div id="last-numbers" class="balls-row-centered" style="min-height: 50px;"></div>
             </div>
 
-            <!-- Main Layout Grid -->
+            <!-- Main Layout: Cards ONLY (Centered) -->
             <div class="game-main-content"
-                style="display: grid; grid-template-columns: 320px 1fr; gap: 20px; flex: 1; min-height: 0;">
+                style="display: flex; justify-content: center; flex: 1; min-height: 0; gap: 20px;">
 
-                <!-- Cards Sub-Panel -->
+                <!-- Cards Sub-Panel (Expanded) -->
                 <aside class="card-white"
-                    style="display: flex; flex-direction: column; overflow: hidden; padding: 15px;">
+                    style="display: flex; flex-direction: column; overflow: hidden; padding: 20px; width: 100%; max-width: 800px; border: 1px solid var(--glass-border);">
                     <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary);">🎫 TUS CARTONES</h4>
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 1rem; color: var(--text-secondary); font-weight: 700;">🎫 TUS CARTONES
+                            ACTIVOS</h4>
                         <span id="cards-count"
-                            style="font-size: 0.8rem; background: var(--primary-glow); color: var(--primary); padding: 2px 8px; border-radius: 10px;">0</span>
+                            style="font-size: 0.9rem; background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; box-shadow: 0 0 15px var(--primary-glow);">0</span>
                     </div>
                     <div id="cards-container"
-                        style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-right: 5px;">
+                        style="flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 5px;">
                         <!-- Cartones aquí -->
                     </div>
                 </aside>
-
-                <!-- Board Sub-Panel -->
-                <main class="card-white"
-                    style="display: flex; flex-direction: column; padding: 15px; overflow: hidden;">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary);">🔢 TABLERO DE NÚMEROS</h4>
-                        <span id="total-called" style="font-size: 0.75rem; color: var(--text-muted);">Bolas: 0/75</span>
-                    </div>
-                    <div class="numbers-board" style="flex: 1; overflow-y: auto;">
-                        <div class="board-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;">
-                            <div class="board-header-cell" style="color: var(--bingo-b);">B</div>
-                            <div class="board-header-cell" style="color: var(--bingo-i);">I</div>
-                            <div class="board-header-cell" style="color: var(--bingo-n);">N</div>
-                            <div class="board-header-cell" style="color: var(--bingo-g);">G</div>
-                            <div class="board-header-cell" style="color: var(--bingo-o);">O</div>
-                            <div id="board-cells-container" style="grid-column: 1 / -1; display: contents;"></div>
-                        </div>
-                    </div>
-                </main>
             </div>
         </div>
     </div>

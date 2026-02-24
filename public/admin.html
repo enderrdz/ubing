@@ -7,10 +7,18 @@
     <title>Yovanny Bingo - Panel de Control</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chat.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // 🔒 Seguridad: Verificación obligatoria de administrador
+        const adminSession = localStorage.getItem('bingo_admin_session');
+        if (!adminSession) {
+            window.location.href = '/admin-login.html';
+        }
+    </script>
 </head>
 
 <body class="admin-app">
@@ -104,24 +112,30 @@
                         </div>
                     </div>
 
-                    <!-- Lista de Jugadores (Movida aquí para acceso rápido) -->
+                    <!-- Lista de Jugadores (REVISIÓN DE IDs PARA TABS) -->
                     <div class="card-white"
                         style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px; min-height: 250px;">
-                        <div class="tabs" style="margin-bottom: 8px;">
-                            <button class="active" onclick="switchTab('pending')"
-                                style="padding: 6px; font-size: 0.75rem;">⌛ <span id="pending-badge">0</span></button>
-                            <button onclick="switchTab('active')" style="padding: 6px; font-size: 0.75rem;">👥 <span
+                        <div class="tabs" style="margin-bottom: 8px; display: flex; gap: 4px;">
+                            <button id="btn-tab-pending" class="active" onclick="switchTab('pending')"
+                                style="flex: 1; padding: 6px; font-size: 0.75rem;">⌛ <span
+                                    id="pending-badge">0</span></button>
+                            <button id="btn-tab-active" onclick="switchTab('active')"
+                                style="flex: 1; padding: 6px; font-size: 0.75rem;">👥 <span
                                     id="active-badge">0</span></button>
-                            <button onclick="switchTab('winners')" style="padding: 6px; font-size: 0.75rem;">🏆</button>
+                            <button id="btn-tab-winners" onclick="switchTab('winners')"
+                                style="flex: 1; padding: 6px; font-size: 0.75rem;">🏆</button>
                         </div>
 
                         <div id="tab-container" style="flex: 1; overflow-y: auto;">
-                            <div id="pending-tab" class="tab-content active">
+                            <!-- Panel Pendientes -->
+                            <div id="pending-tab" class="tab-content active" style="display: block;">
                                 <ul id="pending-list" class="player-list"></ul>
                             </div>
+                            <!-- Panel Activos -->
                             <div id="active-tab" class="tab-content" style="display: none;">
                                 <ul id="active-list" class="player-list"></ul>
                             </div>
+                            <!-- Panel Ganadores -->
                             <div id="winners-tab" class="tab-content" style="display: none;">
                                 <ul id="winners-list" class="player-list"></ul>
                             </div>
@@ -131,15 +145,19 @@
                             style="margin-top: 8px; font-size: 0.8rem; height: 32px; padding: 0;">➕ Jugador</button>
                     </div>
 
-                    <!-- Controles de Juego -->
-                    <div class="card-white" style="padding: 12px;">
+                    <!-- Controles de Juego (Compactados) -->
+                    <div class="card-white" style="padding: 10px;">
                         <button onclick="callNumber()" class="btn-primary"
-                            style="width: 100%; height: 40px; font-size: 1rem; border-radius: 12px; margin-bottom: 8px;">LLAMAR</button>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <button onclick="undoNumber()" class="card-white"
-                                style="padding: 6px; font-size: 0.8rem;">↩️</button>
+                            style="width: 100%; height: 38px; font-size: 0.95rem; border-radius: 10px; margin-bottom: 6px;">
+                            <span id="call-text">LLAMAR</span>
+                        </button>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <button onclick="undoLast()" class="card-white"
+                                style="padding: 5px; font-size: 0.75rem; background: rgba(255,255,255,0.05);">↩️
+                                Deshacer</button>
                             <button onclick="toggleAuto()" id="auto-btn" class="card-white"
-                                style="padding: 6px; font-size: 0.8rem;">▶️ Auto</button>
+                                style="padding: 5px; font-size: 0.75rem; background: rgba(255,255,255,0.05);">▶️
+                                Automático</button>
                         </div>
                     </div>
                 </div>
