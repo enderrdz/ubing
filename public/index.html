@@ -372,7 +372,7 @@
                 <header class="game-header glass-card"
                     style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 15px;">
                     <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
-                        <div class="avatar"
+                        <div id="user-initial" class="avatar"
                             style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
                             ?</div>
                         <div class="user-info">
@@ -1948,8 +1948,10 @@
                 status: 'approved'
             });
 
-            document.getElementById('player-name').textContent = username;
-            document.getElementById('user-initial').textContent = username.charAt(0).toUpperCase();
+            const nameEl = document.getElementById('player-name');
+            const initialEl = document.getElementById('user-initial');
+            if (nameEl) nameEl.textContent = username;
+            if (initialEl) initialEl.textContent = username.charAt(0).toUpperCase();
 
             renderCards(data.cards);
             showScreen('game-screen');
@@ -2099,8 +2101,10 @@
 
         socket.on('reconnection_success', (data) => {
             myCards = data.cards;
-            document.getElementById('player-name').textContent = playerSession.username;
-            document.getElementById('user-initial').textContent = playerSession.username.charAt(0).toUpperCase();
+            const nameEl = document.getElementById('player-name');
+            const initialEl = document.getElementById('user-initial');
+            if (nameEl) nameEl.textContent = playerSession.username;
+            if (initialEl) initialEl.textContent = playerSession.username.charAt(0).toUpperCase();
             renderCards(data.cards);
             showScreen('game-screen');
             audio.join();
@@ -2118,12 +2122,16 @@
 
         socket.on('player_stats', (data) => {
             if (data.stats) {
-                document.getElementById('stat-games').textContent = data.stats.totalGames || 0;
-                document.getElementById('stat-wins').textContent = data.stats.wins || 0;
-                document.getElementById('stat-rate').textContent = `${Math.round(data.stats.winRate || 0)}%`;
+                const gamesEl = document.getElementById('stat-games');
+                const winsEl = document.getElementById('stat-wins');
+                const rateEl = document.getElementById('stat-rate');
+                if (gamesEl) gamesEl.textContent = data.stats.totalGames || 0;
+                if (winsEl) winsEl.textContent = data.stats.wins || 0;
+                if (rateEl) rateEl.textContent = `${Math.round(data.stats.winRate || 0)}%`;
             }
             if (data.level) {
-                document.getElementById('stat-level').textContent = data.level.current || 1;
+                const levelEl = document.getElementById('stat-level');
+                if (levelEl) levelEl.textContent = data.level.current || 1;
             }
         });
 
