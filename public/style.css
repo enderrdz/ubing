@@ -41,6 +41,12 @@
     --text-muted: rgba(255, 255, 255, 0.45);
     --font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
 
+    /* Bingo colors - More vibrant */
+    --bingo-b: #3b82f6;
+    --bingo-i: #f43f5e;
+    --bingo-n: #fbbf24;
+    --bingo-g: #10b981;
+    --bingo-o: #a855f7;
     /* 📏 Layout */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
@@ -1729,7 +1735,7 @@ input:focus {
 .voice-volume {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
 }
 
 .voice-volume label {
@@ -1779,17 +1785,17 @@ input:focus {
 .roulette-wheel {
     width: 150px;
     height: 150px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: radial-gradient(circle at 30% 30%, var(--primary), var(--secondary));
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto var(--spacing-md);
     box-shadow:
-        0 0 0 8px var(--bg-surface),
-        0 0 0 12px var(--primary),
-        0 20px 60px rgba(139, 92, 246, 0.3);
+        0 0 0 6px rgba(255, 255, 255, 0.05),
+        0 0 40px var(--primary-glow);
     transition: transform var(--transition-slow), box-shadow 0.5s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .roulette-wheel.spin {
@@ -1804,11 +1810,13 @@ input:focus {
 
     0%,
     100% {
-        box-shadow: 0 0 0 8px var(--bg-surface), 0 0 0 12px var(--primary), 0 20px 60px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.05), 0 0 40px var(--primary-glow);
+        transform: translateY(0);
     }
 
     50% {
-        box-shadow: 0 0 0 8px var(--bg-surface), 0 0 0 14px var(--primary-light), 0 25px 70px rgba(139, 92, 246, 0.4);
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 60px var(--secondary);
+        transform: translateY(-5px);
     }
 }
 
@@ -1852,15 +1860,17 @@ input:focus {
 }
 
 .balls-row .ball {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 0.875rem;
+    font-weight: 800;
+    font-size: 0.9rem;
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .ball.b {
