@@ -60,9 +60,10 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="/admin-login.html" class="btn-go-out">
-                    <span class="nav-icon">🚪</span> <span>Go Out</span>
-                </a>
+                <button onclick="logoutAdmin()" class="btn-go-out"
+                    style="width: 100%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; gap: 10px; color: var(--text-secondary); padding: 10px;">
+                    <span class="nav-icon">🚪</span> <span>Cerrar Sesión</span>
+                </button>
             </div>
         </aside>
 
@@ -112,9 +113,25 @@
                         </div>
                     </div>
 
+                    <!-- Controles de Juego (PRIORIDAD: ARRIBA) -->
+                    <div class="card-white" style="padding: 10px;">
+                        <button onclick="callNumber()" class="btn-primary"
+                            style="width: 100%; height: 42px; font-size: 1rem; border-radius: 10px; margin-bottom: 8px; font-weight: 800;">
+                            <span id="call-text">LLAMAR</span>
+                        </button>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <button onclick="undoLast()" class="card-white"
+                                style="padding: 8px; font-size: 0.8rem; background: rgba(255,255,255,0.05); font-weight: 600;">↩️
+                                Deshacer</button>
+                            <button onclick="toggleAuto()" id="auto-btn" class="card-white"
+                                style="padding: 8px; font-size: 0.8rem; background: rgba(255,255,255,0.05); font-weight: 600;">▶️
+                                Automático</button>
+                        </div>
+                    </div>
+
                     <!-- Lista de Jugadores (REVISIÓN DE IDs PARA TABS) -->
                     <div class="card-white"
-                        style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px; min-height: 250px;">
+                        style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px; min-height: 200px;">
                         <div class="tabs" style="margin-bottom: 8px; display: flex; gap: 4px;">
                             <button id="btn-tab-pending" class="active" onclick="switchTab('pending')"
                                 style="flex: 1; padding: 6px; font-size: 0.75rem;">⌛ <span
@@ -128,7 +145,7 @@
 
                         <div id="tab-container" style="flex: 1; overflow-y: auto;">
                             <!-- Panel Pendientes -->
-                            <div id="pending-tab" class="tab-content active" style="display: block;">
+                            <div id="pending-tab" class="tab-content" style="display: block;">
                                 <ul id="pending-list" class="player-list"></ul>
                             </div>
                             <!-- Panel Activos -->
@@ -143,22 +160,6 @@
 
                         <button onclick="showAddPlayerModal()" class="btn-primary"
                             style="margin-top: 8px; font-size: 0.8rem; height: 32px; padding: 0;">➕ Jugador</button>
-                    </div>
-
-                    <!-- Controles de Juego (Compactados) -->
-                    <div class="card-white" style="padding: 10px;">
-                        <button onclick="callNumber()" class="btn-primary"
-                            style="width: 100%; height: 38px; font-size: 0.95rem; border-radius: 10px; margin-bottom: 6px;">
-                            <span id="call-text">LLAMAR</span>
-                        </button>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <button onclick="undoLast()" class="card-white"
-                                style="padding: 5px; font-size: 0.75rem; background: rgba(255,255,255,0.05);">↩️
-                                Deshacer</button>
-                            <button onclick="toggleAuto()" id="auto-btn" class="card-white"
-                                style="padding: 5px; font-size: 0.75rem; background: rgba(255,255,255,0.05);">▶️
-                                Automático</button>
-                        </div>
                     </div>
                 </div>
 
@@ -510,24 +511,6 @@
             // Aquí podrías implementar cambio de vistas reales si fuera necesario
         }
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => {
-                c.classList.remove('active');
-                c.style.display = 'none';
-            });
-
-            // Buscar el botón específico
-            const btn = document.querySelector(`button.tab[onclick*="'${tab}'"]`);
-            if (btn) btn.classList.add('active');
-
-            const content = document.getElementById(`${tab}-tab`);
-            if (content) {
-                content.classList.add('active');
-                content.style.display = 'block';
-            }
-        }
-
         // ═══════════════════════════════════════════════════════════════
         // UI: MODALES
         // ═══════════════════════════════════════════════════════════════
@@ -840,10 +823,13 @@
             }
         }
 
-        function newRound() {
-            if (confirm('¿Iniciar nueva ronda? Se borrarán los números llamados.')) {
-                socket.emit('admin_reset');
-            }
+        function logoutAdmin() {
+            localStorage.removeItem('bingo_admin_session');
+            window.location.href = '/admin-login.html';
+        }
+        if (confirm('¿Iniciar nueva ronda? Se borrarán los números llamados.')) {
+            socket.emit('admin_reset');
+        }
         }
 
         function fullReset() {

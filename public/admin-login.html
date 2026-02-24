@@ -61,6 +61,7 @@
                 const data = await res.json();
 
                 if (data.success) {
+                    localStorage.setItem('bingo_admin_session', 'true');
                     window.location.href = '/admin.html';
                 } else {
                     errorEl.textContent = 'Contraseña incorrecta';

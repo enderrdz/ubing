@@ -2388,27 +2388,49 @@ input:focus {
     font-weight: 700;
 }
 
-.board-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--spacing-md);
-}
-
-.board-title {
-    font-weight: 600;
-}
-
-.btn-info {
-    background: transparent;
-    font-size: 1rem;
-}
-
 .numbers-board {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 4px;
+}
+
+.board-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    /* More spacing for light theme */
+    gap: 4px;
+    height: 100%;
+    /* Important for scaling */
+}
+
+/* 📏 Auto-Scaling Board Cells */
+.board-cell {
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: min(2vh, 1rem);
+    /* Adaptive font size */
+    color: var(--text-secondary);
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s;
+    cursor: pointer;
+    min-height: 0;
+    /* Allow shrinking */
+}
+
+.board-header-cell {
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: min(2.5vh, 1.2rem);
+    border-radius: 6px;
+    height: 100%;
 }
 
 .board-header-cell {
