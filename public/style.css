@@ -2601,7 +2601,61 @@ input:focus {
     border-radius: var(--radius-lg);
     padding: var(--spacing-md);
     overflow-y: auto;
-    max-height: 400px;
+}
+
+/* 🎯 CUSTOM PATTERN EDITOR */
+.custom-pattern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.custom-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+
+.custom-cell {
+    aspect-ratio: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+.custom-cell.active {
+    background: var(--primary);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.custom-cell.free {
+    background: var(--warning);
+    border-color: #fbbf24;
+    color: white;
+    font-weight: 900;
+}
+
+.custom-cell.free::after {
+    content: '★';
+    font-size: 1.2rem;
 }
 
 .tab-content.active {
