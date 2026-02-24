@@ -621,18 +621,14 @@
         function updatePatternDisplay() {
             const pattern = PATTERNS[currentPattern];
             const nameEl = document.getElementById('current-pattern-name');
-            const descEl = document.getElementById('current-pattern-desc');
 
             if (!pattern && currentPattern !== 'custom') {
-                console.warn(`⚠️ Patrón "${currentPattern}" no encontrado en PATTERNS. Esperando sincronización...`);
+                console.warn(`⚠️ Patrón "${currentPattern}" no encontrado. Esperando...`);
                 nameEl.textContent = 'Cargando...';
-                descEl.textContent = '';
                 return;
             }
 
-            const mult = pattern?.multiplier ?? (currentPattern === 'custom' ? 2 : 1);
             nameEl.textContent = pattern?.name || (currentPattern === 'custom' ? 'PERSONALIZADO' : currentPattern);
-            descEl.textContent = (pattern?.description || '') + (mult !== 1 ? ` • x${mult} pts` : '');
 
             const grid = document.getElementById('current-pattern-grid');
             if (currentPattern === 'custom') {
@@ -642,7 +638,7 @@
             } else if (pattern && pattern.positions) {
                 grid.innerHTML = renderLargeGrid(pattern.positions);
             } else {
-                grid.innerHTML = '<div class="pattern-loading">Cargando patrón...</div>';
+                grid.innerHTML = '<div class="pattern-loading">...</div>';
             }
         }
 

@@ -27,6 +27,7 @@
     /* 🌫️ Dark UI Tokens */
     --bg-black: #0a0a0c;
     --bg-dark: #121218;
+    --bg-card: #1a1a24;
     --bg-soft: rgba(31, 25, 45, 0.85);
     /* Deep purple-ish background */
     --glass-bg: rgba(255, 255, 255, 0.03);
@@ -36,6 +37,7 @@
 
     /* 🌌 Background Elements */
     --bg-main: #060608;
+    --primary-dark: #6d28d9;
 
     /* ✍️ Typography */
     --text-primary: #ffffff;
@@ -2978,6 +2980,62 @@ input:focus {
     color: white;
 }
 
+.card-status-cell.avail.tabs button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+
+.tabs button.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.tabs button span {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: white !important;
+    margin-left: 4px;
+}
+
+/* Action Buttons Contrast */
+.btn-accept {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: filter 0.2s;
+}
+
+.btn-reject,
+.btn-kick {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: filter 0.2s;
+}
+
+.btn-accept:hover,
+.btn-reject:hover,
+.btn-kick:hover {
+    filter: brightness(1.2);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -3324,6 +3382,108 @@ body.theme-slate {
     font-weight: bold;
     color: var(--primary-light);
     font-size: 1rem;
+}
+
+/* 🎚️ Range Input Styling - High Contrast */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    height: 6px;
+    outline: none;
+    transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--primary-glow);
+    border: 2px solid white;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--primary-glow);
+    border: 2px solid white;
+}
+
+/* 👥 Lista de Jugadores e Ítems */
+.player-item {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.3s var(--spring-easing);
+    color: white !important;
+}
+
+.player-item:hover {
+    border-color: var(--primary-light);
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.player-name {
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+.player-cards {
+    color: var(--text-secondary) !important;
+}
+
+.status-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white !important;
+}
+
+.status-badge.online {
+    color: var(--success) !important;
+}
+
+/* 🎯 Mini Grid de Patrones Admin */
+.mini-pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+}
+
+.large-pattern-cell {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.large-pattern-cell.active {
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.large-pattern-cell.free {
+    background: var(--accent);
 }
 
 /* Rango Moderno */
