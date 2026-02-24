@@ -9,56 +9,57 @@
    VARIABLES Y CONFIGURACIÓN BASE
    ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-    /* 🎨 Vitality Palette - Light & Clean */
-    --primary: #46b8b8;
-    /* Teal Vitality */
-    --primary-light: #6bc9c9;
-    --primary-glow: rgba(70, 184, 184, 0.2);
-    --secondary: #ffcc5c;
-    /* Soft Yellow Acento */
-    --accent: #2d3e50;
-    /* Deep Navy for text/contrast */
-    --accent-glow: rgba(45, 62, 80, 0.1);
+    /* 🎨 Yovanny Bingo Palette - Dark & Premium */
+    --primary: #8b5cf6;
+    /* Vivid Purple */
+    --primary-light: #a78bfa;
+    --primary-glow: rgba(139, 92, 246, 0.3);
+    --secondary: #ec4899;
+    /* Pink Acento */
+    --accent: #f59e0b;
+    /* Amber for highlights */
+    --accent-glow: rgba(245, 158, 11, 0.2);
 
-    --success: #6cc070;
-    --warning: #ffb142;
-    --danger: #ff5252;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
 
-    /* 🌫️ Light UI Tokens */
-    --bg-white: #ffffff;
-    --bg-soft: #f0f7f9;
-    /* Pale teal-ish background */
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(0, 0, 0, 0.05);
-    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    --glass-blur: 10px;
+    /* 🌫️ Dark UI Tokens */
+    --bg-black: #0a0a0c;
+    --bg-dark: #121218;
+    --bg-soft: rgba(31, 25, 45, 0.85);
+    /* Deep purple-ish background */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    --glass-blur: 12px;
 
     /* 🌌 Background Elements */
-    --bg-main: #f5fafd;
+    --bg-main: #060608;
 
     /* ✍️ Typography */
-    --text-primary: #2d3e50;
-    --text-secondary: #5a7184;
-    --text-muted: #95aac9;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
     --font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
 
-    /* Bingo colors - Balanced for light theme */
-    --bingo-b: #4facfe;
-    --bingo-i: #f093fb;
-    --bingo-n: #f6d365;
-    --bingo-g: #5ee7df;
-    --bingo-o: #b189f5;
+    /* Bingo colors - Vibrant for dark theme */
+    --bingo-b: #3b82f6;
+    --bingo-i: #d946ef;
+    --bingo-n: #eab308;
+    --bingo-g: #10b981;
+    --bingo-o: #8b5cf6;
 
     /* 📏 Layout */
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 80px;
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --radius-md: 1rem;
     --radius-lg: 2rem;
-    /* More rounded */
     --radius-xl: 3rem;
-    /* Very rounded (sidebar/buttons) */
 
     /* ⚡ Motion */
     --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -101,15 +102,16 @@ body {
     background: var(--bg-main);
 }
 
-/* 🌈 Global Sparkles/Soft Glows */
+/* 🌈 Global Particle Effects / Soft Glows */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -1;
     background:
-        radial-gradient(circle at 10% 10%, rgba(70, 184, 184, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 90%, rgba(255, 204, 92, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.05) 0%, transparent 40%),
+        var(--bg-main);
     pointer-events: none;
 }
 
@@ -147,14 +149,16 @@ a {
    COMPONENTES COMUNES
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Card Styles - Clean White */
+/* Card Styles - Premium Glass Variant */
 .card-white {
-    background: var(--bg-white);
+    background: var(--bg-soft);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
-    padding: var(--spacing-lg);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    padding: var(--spacing-md);
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-primary);
 }
 
 .card-white:hover {
@@ -346,16 +350,37 @@ input:focus {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .app-sidebar {
-    width: 250px;
-    background: var(--primary);
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, var(--bg-dark), var(--bg-black));
     color: white;
     display: flex;
     flex-direction: column;
     padding: var(--spacing-md);
-    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    border-right: 1px solid var(--glass-border);
     height: 100vh;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 100;
+}
+
+.app-sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.app-sidebar.collapsed .sidebar-brand h1,
+.app-sidebar.collapsed .nav-link span:not(.nav-icon),
+.app-sidebar.collapsed .sidebar-footer span:not(.nav-icon) {
+    display: none;
+}
+
+.app-sidebar.collapsed .sidebar-brand {
+    justify-content: center;
+    padding: var(--spacing-sm) 0;
+}
+
+.app-sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding: 14px 0;
 }
 
 .sidebar-brand {
