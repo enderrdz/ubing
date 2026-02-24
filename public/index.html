@@ -325,11 +325,16 @@
 
             <!-- PANTALLA DE ESPERA -->
             <div id="waiting-screen" class="auth-panel hidden animate-fade-in">
-                <div class="waiting-container animate-slide-up stagger-1">
-                    <div class="loader-ring"></div>
-                    <h2>⏳ Esperando Aprobación</h2>
-                    <p>El administrador está revisando tu solicitud...</p>
-                    <p id="waiting-info" class="waiting-info"></p>
+                <div class="waiting-container card-white animate-slide-up stagger-1"
+                    style="text-align: center; padding: 40px;">
+                    <div class="loader-ring" style="border-top-color: var(--primary); margin: 0 auto 20px;"></div>
+                    <h2 style="color: var(--primary); font-weight: 800; margin-bottom: 10px;">⏳ Esperando Aprobación
+                    </h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">El administrador está revisando tu
+                        solicitud...</p>
+                    <div id="waiting-info" class="card-white"
+                        style="background: var(--bg-soft); color: var(--primary); font-weight: 700; padding: 12px; font-size: 0.9rem;">
+                    </div>
                 </div>
             </div>
 
@@ -369,28 +374,30 @@
             <!-- Panel central: Tablero de números -->
             <main class="game-main" style="overflow-y: auto; padding: 15px;">
                 <!-- Header -->
-                <header class="game-header glass-card"
-                    style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 15px;">
-                    <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
+                <header class="game-header card-white"
+                    style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; margin-bottom: 15px; border: none;">
+                    <div class="header-left" style="display: flex; align-items: center; gap: 12px;">
                         <div id="user-initial" class="avatar"
-                            style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                            style="width: 44px; height: 44px; background: var(--primary); color: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 15px var(--primary-glow);">
                             ?</div>
                         <div class="user-info">
                             <span id="player-name" class="user-name"
-                                style="font-weight: 600; font-size: 0.875rem;">Jugador</span>
-                            <span class="user-status" style="font-size: 0.75rem; color: var(--success);">🟢 En
+                                style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Jugador</span>
+                            <span class="user-status"
+                                style="font-size: 0.75rem; color: var(--success); font-weight: 600;">🟢 En
                                 línea</span>
                         </div>
-                        <button onclick="logoutFromGame()" class="btn-logout-game" title="Cerrar sesión"
-                            style="background: rgba(239,68,68,0.15); color: var(--danger); width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer;">🚪</button>
+                        <button onclick="logoutFromGame()" class="btn-go-out" title="Cerrar sesión"
+                            style="width: 36px; height: 36px; border-radius: 10px; font-size: 0.8rem; padding: 0;">🚪</button>
                     </div>
 
                     <div class="header-center" style="text-align: center;">
-                        <div class="current-ball">
+                        <div class="current-ball-card"
+                            style="background: var(--bg-soft); padding: 5px 15px; border-radius: 12px; border: 1px solid var(--glass-border);">
                             <span class="ball-label"
-                                style="display: block; font-size: 0.625rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">BOLA</span>
+                                style="display: block; font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.1em;">BOLA</span>
                             <span id="current-number" class="ball-number"
-                                style="display: block; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">--</span>
+                                style="display: block; font-size: 1.8rem; font-weight: 900; color: var(--primary);">--</span>
                         </div>
                     </div>
 
