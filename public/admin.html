@@ -14,179 +14,222 @@
 </head>
 
 <body class="admin-app">
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- HEADER PRINCIPAL -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <header class="admin-header">
-        <div class="header-brand">
-            <img src="logo.svg" alt="" class="brand-icon">
-            <span class="brand-text">BINGO YOVANNY</span>
-            <span class="admin-badge">ADMIN</span>
-        </div>
-        <div class="header-status">
-            <span id="connection-status" class="status-indicator online">🟢 Conectado</span>
-            <span id="players-count" class="players-badge">0 jugadores</span>
-            <button onclick="toggleChat()" class="nav-btn"
-                style="background: none; border: none; color: white; cursor: pointer; position: relative;">
-                <span class="nav-icon">💬</span>
-                <div id="chat-badge" class="chat-badge hidden">0</div>
-            </button>
-            <a href="/admin-login.html" class="btn-logout" title="Cerrar sesión">🚪 Salir</a>
-        </div>
-    </header>
+    <div class="app-container">
 
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- TICKER DE MENSAJE -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <div class="admin-ticker">
-        <input type="text" id="admin-message" placeholder="Mensaje para los jugadores..." maxlength="200">
-        <button onclick="setMessage()" class="btn-set">📢 Enviar</button>
+        <!-- 🚀 SIDEBAR (Vitality Style) -->
+        <aside class="app-sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-circle"
+                    style="width: 40px; height: 40px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: 900; font-size: 1.5rem;">
+                    V</div>
+                <h1>Vitality</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-link" onclick="switchTab('active')">
+                    <span class="nav-icon">👥</span>
+                    Jugadores
+                </a>
+                <a href="#" class="nav-link" ontouchstart="showCardStatusModal()" onclick="showCardStatusModal()">
+                    <span class="nav-icon">🎫</span>
+                    Cartones
+                </a>
+                <a href="#" class="nav-link" onclick="showPatternsModal()">
+                    <span class="nav-icon">🎯</span>
+                    Patrones
+                </a>
+                <a href="#" class="nav-link" onclick="toggleChat()">
+                    <span class="nav-icon">💬</span>
+                    Chat <span id="chat-badge" class="chat-badge hidden">0</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/admin-login.html" class="btn-go-out">
+                    <span>🚪</span> Go Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- 🚀 MAIN CONTENT -->
+        <main class="app-main">
+
+            <header class="page-header">
+                <div>
+                    <h2 class="page-title">Dashboard Operacional</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Control en tiempo real del Bingo</p>
+                </div>
+                <div class="header-status">
+                    <span id="connection-status" class="status-indicator online">🟢 Conectado</span>
+                </div>
+            </header>
+
+            <!-- Ticker de mensaje (estilizado como tarjeta) -->
+            <div class="card-white"
+                style="margin-bottom: var(--spacing-lg); display: flex; gap: 12px; align-items: center;">
+                <span style="font-size: 1.2rem;">📢</span>
+                <input type="text" id="admin-message" placeholder="Mensaje para los jugadores..." maxlength="200"
+                    style="flex: 1; background: var(--bg-main); border: none; padding: 10px 15px; border-radius: 12px;">
+                <button onclick="setMessage()" class="btn-primary" style="padding: 10px 20px;">Enviar</button>
+            </div>
+
+            <div class="admin-grid" style="display: grid; grid-template-columns: 1fr 350px; gap: var(--spacing-lg);">
+
+                <!-- Columna Izquierda: Controles y Estado -->
+                <div class="grid-left-col">
+
+                    <div
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                        <!-- Panel de Ruleta -->
+                        <div class="card-white" style="text-align: center;">
+                            <h4 style="margin-bottom: 15px; color: var(--text-secondary);">🔥 Siguiente Número</h4>
+                            <div class="roulette-display"
+                                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div id="roulette-wheel" class="roulette-wheel"
+                                    style="width: 120px; height: 120px; border: 8px solid var(--bg-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                                    <span id="roulette-number"
+                                        style="font-size: 3rem; font-weight: 900; color: var(--primary);">--</span>
+                                </div>
+                                <div style="margin-top: 15px; font-weight: 700;">
+                                    <span id="called-count" style="color: var(--primary);">0</span>/75
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controles de Juego -->
+                        <div class="card-white">
+                            <h4 style="margin-bottom: 15px; color: var(--text-secondary);">⚡ Controles Rápidos</h4>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <button onclick="callNumber()" class="btn-primary"
+                                    style="width: 100%; height: 50px; font-size: 1.1rem;">LLAMAR NUMERO</button>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <button onclick="undoNumber()" class="card-white"
+                                        style="padding: 10px; font-weight: 600; border: 1px solid var(--glass-border); background: var(--bg-soft);">↩️
+                                        Deshacer</button>
+                                    <button onclick="toggleAuto()" id="auto-btn" class="card-white"
+                                        style="padding: 10px; font-weight: 600; border: 1px solid var(--glass-border); background: var(--bg-soft);">▶️
+                                        Auto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Últimos Números -->
+                    <div class="card-white" style="margin-bottom: var(--spacing-lg);">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="color: var(--text-secondary);">🔴 Historial Reciente</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Últimos 10 números</span>
+                        </div>
+                        <div id="last-numbers" class="balls-row"
+                            style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;"></div>
+                    </div>
+
+                    <!-- Panel de Voz -->
+                    <div class="card-white">
+                        <h4 style="color: var(--text-secondary); margin-bottom: 15px;">🔊 Locución y Audio</h4>
+                        <div style="display: flex; gap: 20px; align-items: center;">
+                            <div style="flex: 1;">
+                                <label
+                                    style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">Selector
+                                    de Voz</label>
+                                <select id="admin-voice-selector" onchange="updateSelectedVoice()" class="card-white"
+                                    style="width: 100%; padding: 8px 12px; background: var(--bg-soft);">
+                                    <option value="">Automática</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1;">
+                                <label
+                                    style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px;">Volumen:
+                                    <span id="admin-volume-display">80%</span></label>
+                                <input type="range" id="admin-voice-volume" min="0" max="100" value="80"
+                                    oninput="setAdminVoiceVolume(this.value)"
+                                    style="width: 100%; accent-color: var(--primary);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Jugadores -->
+                <div class="grid-right-col">
+                    <div class="card-white" style="height: 100%; display: flex; flex-direction: column;">
+                        <div class="tabs"
+                            style="display: flex; gap: 10px; border-bottom: 1px solid var(--bg-soft); padding-bottom: 15px; margin-bottom: 15px;">
+                            <button class="tab active" onclick="switchTab('pending')"
+                                style="flex: 1; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">⌛
+                                <span id="pending-badge">0</span></button>
+                            <button class="tab" onclick="switchTab('active')"
+                                style="flex: 1; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">👥
+                                <span id="active-badge">0</span></button>
+                            <button class="tab" onclick="switchTab('winners')"
+                                style="flex: 1; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">🏆</button>
+                        </div>
+
+                        <div id="tab-container" style="flex: 1; overflow-y: auto;">
+                            <!-- Listas dinámicas -->
+                            <div id="pending-tab" class="tab-content active">
+                                <ul id="pending-list" class="player-list"></ul>
+                            </div>
+                            <div id="active-tab" class="tab-content" style="display: none;">
+                                <ul id="active-list" class="player-list"></ul>
+                            </div>
+                            <div id="winners-tab" class="tab-content" style="display: none;">
+                                <ul id="winners-list" class="player-list"></ul>
+                            </div>
+                        </div>
+
+                        <button onclick="showAddPlayerModal()" class="btn-primary"
+                            style="margin-top: 20px; background: var(--bg-soft); color: var(--primary); border: 2px dashed var(--primary-glow); box-shadow: none;">➕
+                            Sumar Jugador</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
     </div>
+    <button onclick="showCardStatusModal()" class="btn-action">🎫 Ver Cartones</button>
+    <button onclick="newRound()" class="btn-warning">🔄 Nueva Ronda</button>
+    <button onclick="fullReset()" class="btn-danger">⚠️ Reinicio Total</button>
+    </div>
+    </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- ÁREA PRINCIPAL -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <main class="admin-main animate-fade-in">
-        <!-- ─────────────────────────────────────────────────────────────
-             PANEL IZQUIERDO: JUGADORES Y GANADORES
-        ────────────────────────────────────────────────────────────── -->
-        <section class="panel-left animate-slide-up stagger-1">
-            <!-- Últimos números y Ruleta (Movido desde el centro) -->
-            <div class="last-number-panel glass-card">
-                <div class="last-balls-minimal">
-                    <span class="label">Últimos:</span>
-                    <div id="last-numbers" class="balls-row"></div>
-                </div>
-
-                <div class="roulette-box roulette-box-mini">
-                    <div class="roulette-display">
-                        <div id="roulette-wheel" class="roulette-wheel">
-                            <span id="roulette-number" class="roulette-number">--</span>
-                        </div>
-                        <div class="roulette-stats">
-                            <span id="called-count">0</span>/75 números
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Controles de voz -->
-            <div class="voice-controls-panel glass-card">
-                <div class="panel-header-simple">
-                    <h4>🔊 Control de Voz</h4>
-                </div>
-                <div class="voice-settings-new">
-                    <div class="voice-select-group">
-                        <label>Voz del Locutor:</label>
-                        <div class="custom-select-wrapper">
-                            <select id="admin-voice-selector" onchange="updateSelectedVoice()">
-                                <option value="">Selección automática</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="voice-volume-modern">
-                        <div class="volume-info">
-                            <label>Volumen:</label>
-                            <span id="admin-volume-display">80%</span>
-                        </div>
-                        <input type="range" id="admin-voice-volume" min="0" max="100" value="80"
-                            oninput="setAdminVoiceVolume(this.value)">
-                    </div>
-
-                    <div class="voice-actions">
-                        <button onclick="testAdminVoice()" class="btn-test-voice-modern">
-                            <span>🔊</span> Probar Voz
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Controles de juego (miniatura) -->
-            <div class="game-controls">
-                <div class="control-group">
-                    <button onclick="callNumber()" class="btn-call">📢 LLAMAR ALEATORIO</button>
-                </div>
-                <div class="control-buttons">
-                    <button onclick="undoNumber()" class="btn-undo" title="Deshacer último">↩️ Deshacer</button>
-                    <button onclick="toggleAuto()" id="auto-btn" class="btn-auto">▶️ Auto</button>
-                </div>
-            </div>
-
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('pending')">
-                    ⏳ Pendientes <span id="pending-badge" class="badge">0</span>
-                </button>
-                <button class="tab" onclick="switchTab('active')">
-                    👥 Activos <span id="active-badge" class="badge">0</span>
-                </button>
-                <button class="tab" onclick="switchTab('winners')">
-                    🏆 Ganadores
-                </button>
-            </div>
-
-            <!-- Contenido de tabs -->
-            <div id="pending-tab" class="tab-content active">
-                <ul id="pending-list" class="player-list">
-                    <li class="empty">No hay solicitudes pendientes</li>
-                </ul>
-            </div>
-
-            <div id="active-tab" class="tab-content">
-                <ul id="active-list" class="player-list">
-                    <li class="empty">No hay jugadores activos</li>
-                </ul>
-            </div>
-
-            <div id="winners-tab" class="tab-content">
-                <ul id="winners-list" class="player-list winners">
-                    <li class="empty">No hay ganadores aún</li>
-                </ul>
-            </div>
-
-            <!-- Acciones rápidas -->
-            <div class="quick-actions">
-                <button onclick="showAddPlayerModal()" class="btn-action">➕ Agregar Jugador</button>
-                <button onclick="showCardStatusModal()" class="btn-action">🎫 Ver Cartones</button>
-                <button onclick="newRound()" class="btn-warning">🔄 Nueva Ronda</button>
-                <button onclick="fullReset()" class="btn-danger">⚠️ Reinicio Total</button>
-            </div>
-        </section>
-
-        <!-- ─────────────────────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────────────────────
              PANEL CENTRAL: TABLERO Y RULETA
         ────────────────────────────────────────────────────────────── -->
-        <section class="panel-center animate-slide-up stagger-2">
-            <div class="board-header">
-                <span class="board-title">Tablero de Números</span>
-                <button onclick="showBoardInfo()" class="btn-info">ℹ️</button>
-            </div>
-            <div id="numbers-board" class="numbers-board">
-                <!-- Los números se generan por JS -->
-            </div>
+    <section class="panel-center animate-slide-up stagger-2">
+        <div class="board-header">
+            <span class="board-title">Tablero de Números</span>
+            <button onclick="showBoardInfo()" class="btn-info">ℹ️</button>
+        </div>
+        <div id="numbers-board" class="numbers-board">
+            <!-- Los números se generan por JS -->
+        </div>
 
 
-        </section>
+    </section>
 
-        <!-- ─────────────────────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────────────────────
              PANEL DERECHO: PATRÓN EN JUEGO (para transmisión)
         ────────────────────────────────────────────────────────────── -->
-        <section class="panel-right animate-slide-up stagger-3">
-            <div class="pattern-box pattern-box-stream">
-                <h4>🎯 Patrón en Juego</h4>
-                <div class="pattern-display-large pattern-display-stream">
-                    <div class="pattern-preview-large pattern-preview-stream">
-                        <div id="current-pattern-grid" class="large-pattern-grid stream-pattern-grid"></div>
-                        <div class="pattern-info pattern-info-stream">
-                            <span id="current-pattern-name" class="pattern-name-large pattern-name-stream">LÍNEA</span>
-                            <span id="current-pattern-desc" class="pattern-desc-small"></span>
-                        </div>
+    <section class="panel-right animate-slide-up stagger-3">
+        <div class="pattern-box pattern-box-stream">
+            <h4>🎯 Patrón en Juego</h4>
+            <div class="pattern-display-large pattern-display-stream">
+                <div class="pattern-preview-large pattern-preview-stream">
+                    <div id="current-pattern-grid" class="large-pattern-grid stream-pattern-grid"></div>
+                    <div class="pattern-info pattern-info-stream">
+                        <span id="current-pattern-name" class="pattern-name-large pattern-name-stream">LÍNEA</span>
+                        <span id="current-pattern-desc" class="pattern-desc-small"></span>
                     </div>
-                    <button onclick="showPatternSelector()" class="btn-change">Cambiar Patrón</button>
                 </div>
+                <button onclick="showPatternSelector()" class="btn-change">Cambiar Patrón</button>
             </div>
-        </section>
+        </div>
+    </section>
     </main>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -447,10 +490,20 @@
         // ═══════════════════════════════════════════════════════════════
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
 
-            document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
-            document.getElementById(`${tab}-tab`).classList.add('active');
+            // Buscar el botón específico
+            const btn = document.querySelector(`button.tab[onclick*="'${tab}'"]`);
+            if (btn) btn.classList.add('active');
+
+            const content = document.getElementById(`${tab}-tab`);
+            if (content) {
+                content.classList.add('active');
+                content.style.display = 'block';
+            }
         }
 
         // ═══════════════════════════════════════════════════════════════
