@@ -145,50 +145,55 @@
         <div class="split-left">
 
             <!-- PANTALLA DE BIENVENIDA -->
-            <!-- PANTALLA DE BIENVENIDA -->
             <div id="welcome-screen" class="auth-panel" style="text-align: center;">
                 <button onclick="goToAdmin()" class="admin-access-btn" title="Panel Admin"
-                    style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.05); border: none; color: white; padding: 10px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;">⚙️</button>
-                <div class="welcome-header" style="margin-bottom: 2rem;">
+                    style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.05); border: none; color: white; padding: 10px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; z-index: 20;">⚙️</button>
+
+                <div class="welcome-header" style="margin-bottom: 2.5rem;">
                     <img src="logo.png" alt="Bingo Logo"
-                        style="width: 100px; margin-bottom: 1rem; filter: drop-shadow(0 0 15px var(--primary-glow));">
-                    <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: -1px;">BINGO YOVANNY</h1>
+                        style="width: 120px; margin-bottom: 1.5rem; filter: drop-shadow(0 0 20px var(--primary-glow));">
+                    <h1
+                        style="font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -1.5px; font-weight: 900; background: linear-gradient(135deg, #fff, #a1a1aa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                        BINGO YOVANNY</h1>
                     <p id="welcome-personalized"
-                        style="color: var(--text-secondary); font-size: 1.1rem; min-height: 1.5rem;">¡La suerte está de
-                        tu lado!</p>
+                        style="color: var(--text-secondary); font-size: 1.2rem; min-height: 1.8rem; font-weight: 500;">
+                        ¡La suerte está de tu lado!</p>
                 </div>
 
                 <div id="welcome-actions-new">
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <button onclick="enterAsGuest()" class="btn-primary btn-block"
-                            style="background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);">🎮
-                            JUGAR COMO INVITADO</button>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <button onclick="enterAsGuest()" class="btn-hero btn-hero-primary btn-block">
+                            <span>🎮 JUGAR COMO INVITADO</span>
+                        </button>
+
                         <div style="display: flex; gap: 12px;">
-                            <button onclick="showScreen('auth-register')" class="btn-outline"
-                                style="flex: 1; border-color: rgba(255,255,255,0.2);">📝 REGISTRO</button>
-                            <button onclick="showScreen('auth-login')" class="btn-primary"
-                                style="flex: 1; background: var(--bg-soft); border: 1px solid var(--primary);">👤
-                                LOGIN</button>
+                            <button onclick="showScreen('auth-register')" class="btn-hero btn-hero-outline"
+                                style="flex: 1;">
+                                <span>📝 REGISTRO</span>
+                            </button>
+                            <button onclick="showScreen('auth-login')" class="btn-hero btn-hero-outline"
+                                style="flex: 1; border-color: var(--primary);">
+                                <span>👤 LOGIN</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div id="welcome-actions-logged" class="hidden">
-                    <button onclick="showScreen('login-screen')" class="btn-primary btn-block"
-                        style="background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2); margin-bottom: 1rem;">🎯
-                        ELEGIR CARTONES</button>
+                    <button onclick="showScreen('login-screen')" class="btn-hero btn-hero-success btn-block"
+                        style="margin-bottom: 1.5rem;">
+                        <span>🎯 ELEGIR CARTONES</span>
+                    </button>
 
-                    <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
-                        <button onclick="showModal('change-name-modal')" class="btn-outline"
-                            style="flex: 1; font-size: 0.75rem; padding: 8px; border-color: rgba(255,255,255,0.1);">🏷️
-                            Cambiar Nombre</button>
-                        <button onclick="showModal('change-password-modal')" class="btn-outline"
-                            style="flex: 1; font-size: 0.75rem; padding: 8px; border-color: rgba(255,255,255,0.1);">🔑
-                            Nueva Clave</button>
+                    <div style="display: flex; gap: 12px; margin-bottom: 1.5rem;">
+                        <button onclick="showModal('change-name-modal')" class="btn-hero btn-hero-outline"
+                            style="flex: 1; font-size: 0.85rem; padding: 12px;">🏷️ Nombre</button>
+                        <button onclick="showModal('change-password-modal')" class="btn-hero btn-hero-outline"
+                            style="flex: 1; font-size: 0.85rem; padding: 12px;">🔑 Clave</button>
                     </div>
 
                     <button onclick="logoutFromGame()" class="btn-link btn-block"
-                        style="font-size: 0.8rem; opacity: 0.6;">Cerrar Sesión</button>
+                        style="font-size: 0.9rem; opacity: 0.6; padding: 10px;">Cerrar Sesión</button>
                 </div>
             </div>
 
@@ -336,9 +341,10 @@
 
         <!-- PANEL DERECHO (Decorativo/Animación) -->
         <div class="split-right">
+            <canvas id="auth-bg-canvas"></canvas>
             <div class="overlay-text">
-                <h2>Únete a la<br>Diversión</h2>
-                <p>La mejor experiencia de Bingo Online con amigos.</p>
+                <h2 class="animate-slide-up">Únete a la Diversión</h2>
+                <p class="animate-slide-up stagger-1">La mejor experiencia de Bingo Online con amigos.</p>
             </div>
         </div>
     </div> <!-- Fin auth-layout -->
@@ -1242,6 +1248,91 @@
                     wakeLock = null;
                 }
             }
+
+            // ═══════════════════════════════════════════════════════════════
+            // ANIMACIÓN DE FONDO (AUTH)
+            // ═══════════════════════════════════════════════════════════════
+            function initAuthBg() {
+                const canvas = document.getElementById('auth-bg-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let w, h, particles = [];
+
+                function resize() {
+                    w = canvas.width = canvas.offsetWidth;
+                    h = canvas.height = canvas.offsetHeight;
+                }
+
+                class Particle {
+                    constructor() {
+                        this.init();
+                    }
+                    init() {
+                        this.x = Math.random() * w;
+                        this.y = Math.random() * h;
+                        this.r = Math.random() * 40 + 10;
+                        this.vx = (Math.random() - 0.5) * 0.5;
+                        this.vy = (Math.random() - 0.5) * 0.5;
+                        this.color = Math.random() > 0.5 ? '#8b5cf6' : '#ec4899';
+                        this.opacity = Math.random() * 0.3 + 0.1;
+                        this.text = Math.floor(Math.random() * 75) + 1;
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < -this.r) this.x = w + this.r;
+                        if (this.x > w + this.r) this.x = -this.r;
+                        if (this.y < -this.r) this.y = h + this.r;
+                        if (this.y > h + this.r) this.y = -this.r;
+                    }
+                    draw() {
+                        ctx.save();
+                        ctx.globalAlpha = this.opacity;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+
+                        // Brillo
+                        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+                        grad.addColorStop(0, 'rgba(255,255,255,0.2)');
+                        grad.addColorStop(1, 'transparent');
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+
+                        // Texto (Número de Bingo)
+                        ctx.globalAlpha = this.opacity * 2;
+                        ctx.fillStyle = 'white';
+                        ctx.font = `bold ${this.r * 0.8}px Outfit`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(this.text, this.x, this.y);
+                        ctx.restore();
+                    }
+                }
+
+                function create() {
+                    particles = [];
+                    for (let i = 0; i < 20; i++) particles.push(new Particle());
+                }
+
+                function loop() {
+                    ctx.clearRect(0, 0, w, h);
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                    requestAnimationFrame(loop);
+                }
+
+                window.addEventListener('resize', resize);
+                resize();
+                create();
+                loop();
+            }
+
+            // Iniciar animación
+            setTimeout(initAuthBg, 100);
 
             // Re-activar si se vuelve a la pestaña
             document.addEventListener('visibilitychange', async () => {
