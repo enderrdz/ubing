@@ -1060,6 +1060,61 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+app.post('/api/update-profile', async (req, res) => {
+    try {
+        const { currentUsername, newUsername, newPassword } = req.body || {};
+        if (!currentUsername) return res.status(400).json({ error: 'Usuario actual requerido' });
+
+        const userLower = currentUsername.trim().toLowerCase();
+        const user = await User.findOne({ username: userLower });
+        if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+        const updates = {};
+
+        // Cambio de nombre
+        if (newUsername && newUsername.trim().toLowerCase() !== userLower) {
+            const desired = newUsername.trim().toLowerCase();
+            if (desired.length < 2) return res.status(400).json({ error: 'Nombre demasiado corto' });
+
+            const existing = await User.findOne({ username: desired });
+            if (existing) return res.status(400).json({ error: 'El nombre de usuario ya está en uso' });
+
+            updates.username = desired;
+        }
+
+        // Cambio de contraseña
+        if (newPassword) {
+            if (newPassword.length < 4) return res.status(400).json({ error: 'Contraseña demasiado corta' });
+            updates.passwordHash = await bcrypt.hash(newPassword, 10);
+        }
+
+        if (Object.keys(updates).length === 0) {
+            return res.json({ success: true, message: 'No hay cambios pendientes' });
+        }
+
+        // Aplicar actualizaciones
+        if (updates.username) {
+            // Actualizar en cascada (Cuidado: esto escala con el volumen de datos)
+            await Player.updateMany({ username: currentUsername }, { username: updates.username });
+            user.username = updates.username;
+        }
+        if (updates.passwordHash) {
+            user.passwordHash = updates.passwordHash;
+        }
+
+        await user.save();
+
+        res.json({
+            success: true,
+            message: 'Perfil actualizado correctamente',
+            username: user.username
+        });
+
+    } catch (e) {
+        res.status(500).json({ error: e.message || 'Error al actualizar perfil' });
+    }
+});
+
 app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body || {};
