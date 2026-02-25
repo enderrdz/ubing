@@ -73,7 +73,7 @@
         <!-- 🚀 MAIN CONTENT -->
         <main class="app-main">
 
-            <header class="page-header" style="margin-bottom: 12px;">
+            <header class="page-header">
                 <div>
                     <h2 class="page-title" style="font-size: 1.5rem;">Dashboard Operacional</h2>
                     <p style="color: var(--text-muted); font-size: 0.8rem;">Control en tiempo real del Bingo</p>
@@ -85,33 +85,26 @@
             </header>
 
             <!-- Ticker de mensaje -->
-            <div class="card-white"
-                style="margin-bottom: 12px; padding: 8px 12px; display: flex; gap: 12px; align-items: center;">
-                <span style="font-size: 1.1rem;">📢</span>
-                <input type="text" id="admin-message" placeholder="Mensaje para los jugadores..." maxlength="200"
-                    style="flex: 1; background: var(--bg-soft); border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem;">
-                <button onclick="setMessage()" class="btn-primary"
-                    style="padding: 6px 15px; font-size: 0.8rem;">Enviar</button>
+            <div class="admin-message-ticker">
+                <span class="ticker-icon">📢</span>
+                <input type="text" id="admin-message" placeholder="Mensaje para los jugadores..." maxlength="200">
+                <button onclick="setMessage()" class="btn-primary">Enviar</button>
             </div>
 
-            <div class="admin-grid"
-                style="display: grid; grid-template-columns: 280px 1fr 300px; gap: 12px; flex: 1; min-height: 0;">
+            <div class="admin-grid">
 
                 <!-- Columna Izquierda: Siguiente Nami y Jugadores -->
-                <div class="grid-left-col" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="grid-left-col">
 
                     <!-- Panel de Ruleta -->
-                    <div class="card-white" style="text-align: center; padding: 15px;">
-                        <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">🔥 Siguiente
-                        </h4>
+                    <div class="card-white card-roulette">
+                        <h4>🔥 Siguiente</h4>
                         <div class="roulette-display">
-                            <div id="roulette-wheel" class="roulette-wheel"
-                                style="width: 100px; height: 100px; border: 6px solid var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); margin: 0 auto;">
-                                <span id="roulette-number"
-                                    style="font-size: 2.5rem; font-weight: 900; color: var(--primary);">--</span>
+                            <div id="roulette-wheel" class="roulette-wheel">
+                                <span id="roulette-number">--</span>
                             </div>
-                            <div style="margin-top: 10px; font-weight: 700; font-size: 0.9rem;">
-                                <span id="called-count" style="color: var(--primary);">0</span>/75
+                            <div class="called-counter">
+                                <span id="called-count">0</span>/75
                             </div>
                         </div>
                     </div>
@@ -133,15 +126,12 @@
                     </div>
 
                     <!-- Lista de Jugadores (REVISIÓN DE IDs PARA TABS) -->
-                    <div class="card-white"
-                        style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 12px; min-height: 250px;">
+                    <div class="card-white card-players">
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                             <h4 style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700;">👥 GESTIÓN
                             </h4>
-                            <span id="players-count"
-                                style="font-size: 0.75rem; color: var(--primary-light); font-weight: 700;">0
-                                jugadores</span>
+                            <span id="players-count">0 jugadores</span>
                         </div>
                         <div class="tabs" style="margin-bottom: 8px; display: flex; gap: 4px;">
                             <button id="btn-tab-pending" class="active" onclick="switchTab('pending')"
@@ -175,7 +165,7 @@
                 </div>
 
                 <!-- Columna Central: Historial y Tablero -->
-                <div class="grid-center-col" style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+                <div class="grid-center-col">
 
                     <!-- Historial Superior -->
                     <div class="card-white" style="padding: 10px; text-align: center;">
@@ -202,8 +192,7 @@
                             </div>
                         </div>
 
-                        <div class="numbers-board" id="numbers-board"
-                            style="flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
+                        <div class="numbers-board" id="numbers-board">
                             <div class="board-header-cell" style="color: var(--bingo-b);">B</div>
                             <div class="board-header-cell" style="color: var(--bingo-i);">I</div>
                             <div class="board-header-cell" style="color: var(--bingo-n);">N</div>
@@ -214,15 +203,13 @@
                     </div>
                 </div>
                 <!-- Columna Derecha: Patrón y Audio -->
-                <div class="grid-right-col" style="display: flex; flex-direction: column; gap: 12px; min-height: 0;">
+                <div class="grid-right-col">
 
                     <!-- Patrón Actual -->
                     <div class="card-white" style="text-align: center; padding: 15px;">
                         <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem;">🎯 Patrón
                         </h4>
-                        <div id="current-pattern-grid" class="mini-pattern-grid"
-                            style="margin: 0 auto 10px; width: 100px; height: 100px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
-                        </div>
+                        <div id="current-pattern-grid" class="mini-pattern-grid"></div>
                         <span id="current-pattern-name"
                             style="display: block; font-weight: 800; font-size: 1.1rem; color: var(--primary);">LÍNEA</span>
                         <button onclick="showPatternSelector()" class="btn-primary"
@@ -230,12 +217,10 @@
                     </div>
 
                     <!-- Panel de Voz -->
-                    <div class="card-white" style="padding: 12px;">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <h4 style="color: var(--text-secondary); font-size: 0.85rem;">🔊 Locución</h4>
-                            <span id="admin-volume-display"
-                                style="font-size: 0.8rem; color: var(--text-muted);">80%</span>
+                    <div class="card-white card-voice">
+                        <div class="voice-header">
+                            <h4>🔊 Locución</h4>
+                            <span id="admin-volume-display">80%</span>
                         </div>
                         <select id="admin-voice-selector" onchange="updateSelectedVoice()" class="card-white"
                             style="width: 100%; padding: 6px; background: rgba(255,255,255,0.03); font-size: 0.8rem; margin-bottom: 10px;">
