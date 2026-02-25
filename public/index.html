@@ -615,109 +615,38 @@
         </div>
     </div>
 
-    <!-- Modal de estadísticas -->
+    <!-- Modal de Estadísticas -->
     <div id="stats-modal" class="modal hidden">
-        <div class="modal-content glass-card slide-up">
+        <div class="modal-content neon-modal slide-up">
             <div class="modal-header">
-                <h3>📊 Mis Estadísticas</h3>
+                <h3 class="neon-title">📊 Mis Estadísticas</h3>
                 <button onclick="hideModal('stats-modal')" class="btn-close">✕</button>
             </div>
 
-            <!-- Tabs -->
-            <div class="stats-tabs">
-                <button class="stats-tab active" id="stats-tab-mis" onclick="switchStatsTab('mis')">🎮 Mis
-                    Stats</button>
-                <button class="stats-tab" id="stats-tab-lb" onclick="switchStatsTab('lb')">🏆 Tabla</button>
-            </div>
-
-            <!-- Pane: Mis Stats -->
-            <div id="stats-pane-mis" class="stats-tab-pane active">
-                <div id="stats-content" class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-games">0</span>
-                        <span class="stat-label">Partidas</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-wins">0</span>
-                        <span class="stat-label">Victorias</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-rate">0%</span>
-                        <span class="stat-label">Win Rate</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-level">1</span>
-                        <span class="stat-label">Nivel</span>
-                    </div>
+            <div style="padding: 10px;">
+                <div class="tabs-neon">
+                    <button class="tab-btn active" onclick="switchStatsTab('stats')">📊 Stats</button>
+                    <button class="tab-btn" onclick="switchStatsTab('table')">🏆 Tabla</button>
                 </div>
 
-                <!-- Barra de Progreso de Nivel -->
-                <div class="level-progress-section"
-                    style="margin: 0.5rem 1rem; padding: 0.85rem 1rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
-                    <div
-                        style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600;">
-                        <span>Progreso Nivel <span id="lvl-current">1</span></span>
-                        <span id="lvl-exp" style="opacity: 0.8;">0 / 100 XP</span>
-                    </div>
-                    <div style="height: 8px; background: rgba(0,0,0,0.3); border-radius: 5px; overflow: hidden;">
-                        <div id="lvl-bar"
-                            style="height: 100%; width: 0%; background: linear-gradient(90deg, #4f46e5, #ec4899); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Extra stats: streak, points, time -->
-                <div class="stats-extras">
-                    <div class="stats-extra-item">
-                        <span class="extra-label">🔥 Racha actual</span>
-                        <span class="extra-value" id="stat-streak">0</span>
-                    </div>
-                    <div class="stats-extra-item">
-                        <span class="extra-label">⚡ Mejor racha</span>
-                        <span class="extra-value" id="stat-maxstreak">0</span>
-                    </div>
-                    <div class="stats-extra-item">
-                        <span class="extra-label">⭐ Puntos totales</span>
-                        <span class="extra-value" id="stat-points">0</span>
-                    </div>
-                    <div class="stats-extra-item">
-                        <span class="extra-label">⏱️ Tiempo jugado</span>
-                        <span class="extra-value" id="stat-time">0 min</span>
-                    </div>
-                </div>
-
-                <!-- Fav numbers -->
-                <p class="stats-modal-section-title" style="margin-top:0.6rem;">🎲 Números frecuentes</p>
-                <div id="fav-numbers" class="fav-numbers"><span class="stats-hint" style="padding:0.4rem;">Sin datos
-                        aún</span></div>
-
-                <!-- Achievements preview -->
-                <p class="stats-modal-section-title">🏅 Últimos logros</p>
-                <div class="stats-achievements-preview" id="stats-achievements-preview" style="padding: 0 1rem 1rem;">
-                </div>
-            </div>
-
-            <!-- Pane: Leaderboard -->
-            <div id="stats-pane-lb" class="stats-tab-pane">
-                <div class="leaderboard-section">
-                    <div class="leaderboard-header">
-                        <h4>Top Jugadores</h4>
-                        <span id="lb-loading" style="font-size:0.75rem; color:var(--text-muted);">Cargando…</span>
-                    </div>
-                    <div id="leaderboard-list" class="leaderboard-list"></div>
+                <div id="stats-content-tab" class="stats-grid-neon neon-scroll"
+                    style="margin-top: 15px; max-height: 60vh; overflow-y: auto;">
+                    <!-- Stats dinámicas aquí -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal de logros -->
+    <!-- Modal de Logros -->
     <div id="achievements-modal" class="modal hidden">
-        <div class="modal-content glass-card slide-up modal-large">
+        <div class="modal-content neon-modal slide-up">
             <div class="modal-header">
-                <h3>🏅 Todos los Logros</h3>
+                <h3 class="neon-title">🏅 Tus Logros</h3>
                 <button onclick="hideModal('achievements-modal')" class="btn-close">✕</button>
             </div>
-            <div id="achievements-grid" class="achievements-grid"></div>
+            <div id="achievements-list" class="achievements-list neon-scroll">
+                <!-- Logros aquí -->
+            </div>
         </div>
     </div>
 

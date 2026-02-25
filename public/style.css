@@ -107,6 +107,7 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    /* IMPORTANTE: Bloquea scroll en toda la app */
     background: var(--bg-main);
 }
 
@@ -114,11 +115,12 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px;
+    /* Reducido para ganar espacio */
     overflow: hidden;
-    /* BLOQUEO DE SCROLL GLOBAL */
+    /* Forzar que el contenido se gestione internamente */
     position: relative;
-    height: 100%;
+    height: 100vh;
 }
 
 /* 🌈 Global Particle Effects / Soft Glows */
@@ -265,8 +267,9 @@ a {
     gap: 12px;
     flex: 1;
     min-height: 0;
-    height: calc(100vh - 160px);
-    /* Ajuste dinámico para ocupar el resto del viewport */
+    height: calc(100vh - 140px);
+    /* Ajuste preciso para evitar scroll vertical */
+    overflow: hidden;
 }
 
 .grid-left-col,
@@ -305,8 +308,17 @@ a {
     overflow: hidden;
     padding: 12px;
     min-height: 200px;
-    max-height: calc(100vh - 380px);
-    /* Ajuste dinámico para dejar espacio a ruleta y controles */
+    max-height: calc(100vh - 350px);
+    /* Restricción firme */
+    display: flex;
+    flex-direction: column;
+}
+
+#tab-container {
+    flex: 1;
+    overflow-y: auto !important;
+    /* FORZAR SCROLL INTERNO */
+    padding-right: 5px;
 }
 
 .card-roulette h4,
@@ -3242,6 +3254,7 @@ input:focus {
 
 .btn-action:hover {
     background: var(--primary);
+    color: white;
 }
 
 .btn-warning {
@@ -3653,6 +3666,103 @@ input:focus {
 
 .shake {
     animation: shake 0.3s ease;
+}
+
+/* 🌌 Estilo Neón Futurista (Modal Jugador) */
+.neon-modal {
+    background: rgba(10, 10, 15, 0.95);
+    border-radius: 20px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow), inset 0 0 10px var(--primary-glow);
+    animation: neon-border-flow 4s linear infinite;
+    backdrop-filter: blur(20px);
+}
+
+@keyframes neon-border-flow {
+    0% {
+        border-color: var(--primary);
+        box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    50% {
+        border-color: var(--secondary);
+        box-shadow: 0 0 30px rgba(236, 72, 153, 0.4);
+    }
+
+    100% {
+        border-color: var(--primary);
+        box-shadow: 0 0 20px var(--primary-glow);
+    }
+}
+
+.neon-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.stats-grid-neon {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.stat-card-neon {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.
+
+/* Scrollbars Neón Custom */
+.neon-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.neon-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.neon-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary), var(--secondary));
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Tabs Neón */
+.tabs-neon {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.tabs-neon .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.tabs-neon .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 0 15px var(--primary-glow);
 }
 
 /* Print styles for card download */
