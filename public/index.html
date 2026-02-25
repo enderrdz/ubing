@@ -390,6 +390,8 @@
                         <span id="mode-display"
                             style="font-size: 0.85rem; font-weight: 700; color: var(--secondary);">LÍNEA</span>
                     </div>
+                    <button onclick="showModal('settings-modal')" class="card-white"
+                        style="padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.05);">⚙️</button>
                     <button onclick="logoutFromGame()" class="card-white"
                         style="padding: 10px; border-radius: 10px;">🚪</button>
                 </div>
@@ -551,17 +553,16 @@
                 </div>
             </div>
             <div class="settings-section">
-                <h4>🔔 Notificaciones</h4>
-                <div class="setting-item">
-                    <span>Avisarme de nuevas partidas</span>
-                    <label class="switch">
-                        <input type="checkbox" id="notifications-toggle"
-                            onchange="handleNotificationsToggle(this.checked)">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
             </div>
         </div>
+        <div class="settings-section" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+            <h4>🎨 Apariencia</h4>
+            <button onclick="showModal('customize-modal')" class="btn-hero btn-hero-outline btn-block"
+                style="margin-top: 10px; border-color: var(--secondary); color: var(--secondary);">
+                🎨 Cambiar Colores del Cartón
+            </button>
+        </div>
+    </div>
     </div>
 
     <!-- Modal de Mensaje Privado -->
@@ -625,13 +626,68 @@
 
             <div style="padding: 10px;">
                 <div class="tabs-neon">
-                    <button class="tab-btn active" onclick="switchStatsTab('stats')">📊 Stats</button>
-                    <button class="tab-btn" onclick="switchStatsTab('table')">🏆 Tabla</button>
+                    <button class="tab-btn active" id="stats-tab-mis" onclick="switchStatsTab('mis')">📊 Mis
+                        Stats</button>
+                    <button class="tab-btn" id="stats-tab-lb" onclick="switchStatsTab('lb')">🏆 Tabla</button>
                 </div>
 
-                <div id="stats-content-tab" class="stats-grid-neon neon-scroll"
-                    style="margin-top: 15px; max-height: 60vh; overflow-y: auto;">
-                    <!-- Stats dinámicas aquí -->
+                <!-- Pane: Mis Stats -->
+                <div id="stats-pane-mis" class="stats-tab-pane active neon-scroll"
+                    style="max-height: 65vh; overflow-y: auto; padding: 10px;">
+                    <div id="stats-content" class="stats-grid-neon">
+                        <div class="stat-card-neon"><span class="stat-value" id="stat-games">0</span><br><span
+                                class="stat-label">Partidas</span></div>
+                        <div class="stat-card-neon"><span class="stat-value" id="stat-wins">0</span><br><span
+                                class="stat-label">Victorias</span></div>
+                        <div class="stat-card-neon"><span class="stat-value" id="stat-rate">0%</span><br><span
+                                class="stat-label">Win Rate</span></div>
+                        <div class="stat-card-neon"><span class="stat-value" id="stat-level">1</span><br><span
+                                class="stat-label">Nivel</span></div>
+                    </div>
+
+                    <div class="level-progress-section"
+                        style="margin: 15px 0; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.8rem;">
+                            <span>Progreso Nivel <span id="lvl-current">1</span></span>
+                            <span id="lvl-exp" style="opacity: 0.8;">0 / 100 XP</span>
+                        </div>
+                        <div style="height: 6px; background: rgba(0,0,0,0.3); border-radius: 5px; overflow: hidden;">
+                            <div id="lvl-bar"
+                                style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.6s ease;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid-neon" style="grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                        <div class="stat-card-neon" style="padding: 10px;"><span
+                                style="font-size: 0.7rem; opacity: 0.7;">🔥 Racha</span><br><span id="stat-streak"
+                                style="font-weight: 800;">0</span></div>
+                        <div class="stat-card-neon" style="padding: 10px;"><span
+                                style="font-size: 0.7rem; opacity: 0.7;">⚡ Mejor</span><br><span id="stat-maxstreak"
+                                style="font-weight: 800;">0</span></div>
+                        <div class="stat-card-neon" style="padding: 10px;"><span
+                                style="font-size: 0.7rem; opacity: 0.7;">⭐ Puntos</span><br><span id="stat-points"
+                                style="font-weight: 800;">0</span></div>
+                        <div class="stat-card-neon" style="padding: 10px;"><span
+                                style="font-size: 0.7rem; opacity: 0.7;">⏱️ Tiempo</span><br><span id="stat-time"
+                                style="font-weight: 800;">0 min</span></div>
+                    </div>
+
+                    <p style="font-size: 0.8rem; font-weight: 800; margin: 15px 0 8px; color: var(--primary-light);">🎲
+                        NÚMEROS FRECUENTES</p>
+                    <div id="fav-numbers" class="fav-numbers" style="display: flex; gap: 5px; flex-wrap: wrap;"></div>
+
+                    <p style="font-size: 0.8rem; font-weight: 800; margin: 15px 0 8px; color: var(--secondary);">🏅
+                        ÚLTIMOS LOGROS</p>
+                    <div id="stats-achievements-preview"
+                        style="display: flex; gap: 5px; overflow-x: auto; padding-bottom: 5px;"></div>
+                </div>
+
+                <!-- Pane: Leaderboard -->
+                <div id="stats-pane-lb" class="stats-tab-pane hidden neon-scroll"
+                    style="max-height: 65vh; overflow-y: auto; padding: 10px;">
+                    <div id="leaderboard-list"></div>
                 </div>
             </div>
         </div>
@@ -644,7 +700,8 @@
                 <h3 class="neon-title">🏅 Tus Logros</h3>
                 <button onclick="hideModal('achievements-modal')" class="btn-close">✕</button>
             </div>
-            <div id="achievements-list" class="achievements-list neon-scroll">
+            <div id="achievements-grid" class="achievements-grid neon-scroll"
+                style="max-height: 70vh; overflow-y: auto; padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <!-- Logros aquí -->
             </div>
         </div>
