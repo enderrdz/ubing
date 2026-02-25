@@ -284,21 +284,28 @@ a {
 
 .card-roulette,
 .card-players,
-.card-voice {
+.card-voice,
+.card-controls {
     display: flex;
     flex-direction: column;
 }
 
 .card-roulette {
     text-align: center;
-    padding: 15px;
+    padding: 10px;
+}
+
+.card-controls {
+    padding: 10px;
 }
 
 .card-players {
     flex: 1;
     overflow: hidden;
     padding: 12px;
-    min-height: 250px;
+    min-height: 200px;
+    max-height: calc(100vh - 380px);
+    /* Ajuste dinámico para dejar espacio a ruleta y controles */
 }
 
 .card-roulette h4,
