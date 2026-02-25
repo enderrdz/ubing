@@ -1073,11 +1073,10 @@
                     });
                     const d = await r.json();
                     if (!d.success) {
-                        // Feedback específico como pidió el usuario
-                        if (d.error?.includes('contraseña') || d.error?.includes('password')) {
-                            err.textContent = '🔑 Contraseña incorrecta. Inténtalo de nuevo.';
-                        } else if (d.error?.includes('usuario') || d.error?.includes('user')) {
-                            err.textContent = '👤 Usuario no encontrado en el sistema.';
+                        if (d.error === 'La contraseña es incorrecta') {
+                            err.textContent = '🔑 La contraseña es incorrecta. Inténtalo de nuevo.';
+                        } else if (d.error === 'El usuario no existe en la base de datos') {
+                            err.textContent = '👤 El usuario no existe en la base de datos.';
                         } else {
                             err.textContent = '❌ ' + (d.error || 'Error al iniciar sesión');
                         }
@@ -1104,8 +1103,8 @@
                     });
                     const d = await r.json();
                     if (!d.success) {
-                        if (d.error?.includes('existe') || d.error?.includes('taken')) {
-                            err.textContent = '🚫 El nombre de usuario ya está en uso.';
+                        if (d.error === 'Usuario ocupado') {
+                            err.textContent = '🚫 Nombre de usuario ocupado. Prueba con otro.';
                         } else if (d.error?.includes('correo') || d.error?.includes('email')) {
                             err.textContent = '📧 El correo ya está registrado.';
                         } else {

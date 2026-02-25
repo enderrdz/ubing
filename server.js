@@ -1049,7 +1049,7 @@ app.post('/api/register', async (req, res) => {
         if (user.length < 2) return res.status(400).json({ error: 'Usuario muy corto' });
         if (password.length < 4) return res.status(400).json({ error: 'Contraseña mínimo 4 caracteres' });
         const existing = await User.findOne({ username: user });
-        if (existing) return res.status(400).json({ error: 'Usuario ya existe' });
+        if (existing) return res.status(400).json({ error: 'Usuario ocupado' });
         const existingEmail = await User.findOne({ email: email.trim().toLowerCase() });
         if (existingEmail) return res.status(400).json({ error: 'El correo ya está registrado' });
         const passwordHash = await bcrypt.hash(password, 10);
@@ -1122,9 +1122,9 @@ app.post('/api/login', async (req, res) => {
             return res.status(400).json({ error: 'Usuario y contraseña requeridos' });
         }
         const user = await User.findOne({ username: username.trim().toLowerCase() });
-        if (!user) return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+        if (!user) return res.status(401).json({ error: 'El usuario no existe en la base de datos' });
         const ok = await bcrypt.compare(password, user.passwordHash);
-        if (!ok) return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+        if (!ok) return res.status(401).json({ error: 'La contraseña es incorrecta' });
         res.json({
             success: true,
             username: user.username,
