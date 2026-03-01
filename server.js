@@ -552,42 +552,38 @@ function checkAchievements(player, winData) {
 // ═══════════════════════════════════════════════════════════════
 async function checkForAutomaticWinners() {
     const now = Date.now();
-    if (now - gameSession.lastWinnerTime < gameSession.cooldown) return;
-
-    // Optimizacion: Solo verificar si hay una partida activa y números llamados
+    // No bloqueamos completamente si hay ganadores múltiples en un tick, 
+    // pero mantenemos un pequeño log para control.
     if (gameState.calledNumbers.length === 0) return;
 
-    // Obtener todos los jugadores activos conectados
+    // Obtener todos los jugadores posibles
     const sockets = Array.from(io.sockets.sockets.values());
     const connectedPlayers = sockets
         .filter(s => s.data.username && s.data.cardIds?.length > 0)
         .map(s => ({ username: s.data.username, cardIds: s.data.cardIds, socketId: s.id }));
 
-    // Obtener jugadores de la base de datos que están activos
     const dbPlayers = await Player.find({ isActive: true, cardIds: { $exists: true, $not: { $size: 0 } } }).lean();
     const connectedUsernames = new Set(connectedPlayers.map(p => p.username));
-
-    // Filtrar jugadores de DB que no están conectados
     const dbPlayersList = dbPlayers
         .filter(p => !connectedUsernames.has(p.username))
         .map(p => ({ username: p.username, cardIds: p.cardIds, type: 'database' }));
 
-    // Combinar listas de verificación
     const allCheckList = [...connectedPlayers, ...dbPlayersList];
+    let winnersFoundInThisTick = 0;
 
     for (const player of allCheckList) {
         if (gameSession.winners.has(player.username)) continue;
 
         for (const cardId of player.cardIds) {
             if (gameSession.winningCards.has(cardId)) continue;
-            // Solo verificar si el cartón está en takenCards (sincronizado)
             if (!takenCards.has(cardId)) continue;
 
             const card = generateCard(cardId);
             const hasWon = checkWin(card, gameState.calledNumbers, gameState.pattern, gameState.customPattern);
 
             if (hasWon) {
-                console.log(`🏆 ¡GANADOR AUTOMÁTICO! ${player.username} con cartón #${cardId}`);
+                console.log(`🏆 ¡GANADOR DETECTADO! ${player.username} con cartón #${cardId}`);
+                winnersFoundInThisTick++;
 
                 const winData = {
                     user: player.username,
@@ -608,22 +604,23 @@ async function checkForAutomaticWinners() {
                 await updatePlayerStats(player.username, winData);
                 await saveGameState();
 
-                io.emit('bingo_audio', { playSound: true });
-                io.emit('winner_announced', winData);
-                io.emit('update_history', gameState.last5Winners);
-                io.emit('bingo_celebration', {
-                    message: `¡BINGO! ${player.username} con cartón #${cardId}`,
-                    winner: winData
-                });
-                io.emit('winner_card_details', {
-                    username: player.username,
-                    cardId: cardId,
-                    card: card,
-                    calledNumbers: gameState.calledNumbers,
-                    pattern: gameState.pattern
-                });
-
-                return; // Uno a la vez para evitar colisiones masivas en un solo tick
+                // Notificar a todos con un pequeño escalonamiento si hay muchos
+                setTimeout(() => {
+                    io.emit('bingo_audio', { playSound: true });
+                    io.emit('winner_announced', winData);
+                    io.emit('update_history', gameState.last5Winners);
+                    io.emit('bingo_celebration', {
+                        message: `¡BINGO! ${player.username} con cartón #${cardId}`,
+                        winner: winData
+                    });
+                    io.emit('winner_card_details', {
+                        username: player.username,
+                        cardId: cardId,
+                        card: card,
+                        calledNumbers: gameState.calledNumbers,
+                        pattern: gameState.pattern
+                    });
+                }, winnersFoundInThisTick * 500); // 500ms entre anuncios para que no se pisen audios
             }
         }
     }

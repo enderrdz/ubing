@@ -9,48 +9,48 @@
    VARIABLES Y CONFIGURACIÓN BASE
    ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-    /* 🎨 Yovanny Bingo Palette - Dark & Premium */
-    --primary: #8b5cf6;
-    /* Vivid Purple */
-    --primary-light: #a78bfa;
-    --primary-glow: rgba(139, 92, 246, 0.3);
-    --secondary: #ec4899;
-    /* Pink Acento */
-    --accent: #f59e0b;
-    /* Amber for highlights */
-    --accent-glow: rgba(245, 158, 11, 0.2);
+    /* 🎨 Yovanny Bingo Palette - Premium Green & Gold (Based on Image) */
+    --primary: #2e7d32;
+    /* Rich Forest Green */
+    --primary-light: #4caf50;
+    --primary-glow: rgba(46, 125, 50, 0.3);
+    --secondary: #fbc02d;
+    /* Vibrant Logo Yellow */
+    --accent: #ffd700;
+    /* Golden touches */
+    --accent-glow: rgba(255, 215, 0, 0.4);
 
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    --success: #2e7d32;
+    --warning: #ffa000;
+    --danger: #d32f2f;
 
-    /* 🌫️ Dark UI Tokens */
-    --bg-black: #0a0a0c;
-    --bg-dark: #121218;
-    --bg-card: #1a1a24;
-    --bg-soft: rgba(31, 25, 45, 0.85);
-    /* Deep purple-ish background */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    --glass-blur: 12px;
+    /* 🌫️ Light UI Tokens (Premium White Theme) */
+    --bg-black: #e0e0e0;
+    --bg-dark: #f5f5f5;
+    --bg-card: #ffffff;
+    --bg-soft: rgba(255, 255, 255, 0.92);
+    /* Soft white glass */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(46, 125, 50, 0.15);
+    --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --glass-blur: 15px;
 
     /* 🌌 Background Elements */
-    --bg-main: #060608;
-    --primary-dark: #6d28d9;
+    --bg-main: #ffffff;
+    --primary-dark: #1b5e20;
 
     /* ✍️ Typography */
-    --text-primary: #ffffff;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #757575;
     --font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
 
-    /* Bingo colors - Vibrant for dark theme */
-    --bingo-b: #3b82f6;
-    --bingo-i: #d946ef;
-    --bingo-n: #eab308;
-    --bingo-g: #10b981;
-    --bingo-o: #8b5cf6;
+    /* Bingo colors - Updated for visibility on white */
+    --bingo-b: #1976d2;
+    --bingo-i: #c2185b;
+    --bingo-n: #f57c00;
+    --bingo-g: #2e7d32;
+    --bingo-o: #7b1fa2;
 
     /* 📏 Layout */
     --sidebar-width: 250px;
@@ -60,8 +60,8 @@
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --radius-md: 1rem;
-    --radius-lg: 2rem;
-    --radius-xl: 3rem;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
 
     /* ⚡ Motion */
     --spring-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -130,8 +130,8 @@ body::before {
     inset: 0;
     z-index: -1;
     background:
-        radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 10% 10%, rgba(46, 125, 50, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(251, 192, 45, 0.05) 0%, transparent 40%),
         var(--bg-main);
     pointer-events: none;
 }
@@ -1651,7 +1651,7 @@ input:focus {
 
 .bingo-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.25);
+    box-shadow: 0 12px 40px var(--primary-glow);
 }
 
 .card-header {
@@ -1724,12 +1724,13 @@ input:focus {
 .grid-cell.marked {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
+    box-shadow: 0 0 15px var(--primary-glow);
     animation: mark 0.3s ease;
 }
 
 .grid-cell.free {
-    background: linear-gradient(135deg, var(--warning), #d97706);
-    color: white;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    color: var(--text-primary);
     font-size: 1.5rem;
 }
 
@@ -1793,13 +1794,31 @@ input:focus {
 .btn-bingo {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--danger), #dc2626);
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
     border-radius: var(--radius-full);
-    color: white;
+    color: var(--primary-dark);
+    box-shadow: 0 10px 30px var(--accent-glow);
     font-weight: 900;
     font-size: 1rem;
-    box-shadow: 0 10px 40px rgba(239, 68, 68, 0.4);
-    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    animation: gold-pulse 2s infinite;
+}
+
+@keyframes gold-pulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--accent-glow);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 215, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
 }
 
 .btn-bingo:hover {

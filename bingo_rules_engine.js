@@ -8,316 +8,312 @@ const BINGO_PATTERNS = {
     // Basic Patterns
     'line': {
         name: 'LÍNEA',
-        description: 'Any complete horizontal, vertical, or diagonal line',
+        description: 'Cualquier línea horizontal, vertical o diagonal completa',
         positions: [
-            [0,1,2,3,4], [5,6,7,8,9], [10,11,12,13,14], [15,16,17,18,19], [20,21,22,23,24],
-            [0,5,10,15,20], [1,6,11,16,21], [2,7,12,17,22], [3,8,13,18,23], [4,9,14,19,24],
-            [0,6,12,18,24], [4,8,12,16,20]
+            // Horizontales
+            [0, 5, 10, 15, 20], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], [3, 8, 13, 18, 23], [4, 9, 14, 19, 24],
+            // Verticales
+            [0, 1, 2, 3, 4], [5, 6, 7, 8, 9], [10, 11, 12, 13, 14], [15, 16, 17, 18, 19], [20, 21, 22, 23, 24],
+            // Diagonales
+            [0, 6, 12, 18, 24], [4, 8, 12, 16, 20]
         ]
     },
 
     'full': {
         name: 'CARTÓN LLENO',
-        description: 'Complete blackout - all numbers marked',
-        positions: [[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]]
+        description: 'Blackout completo - todos los números marcados',
+        positions: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]]
     },
 
     // Geometric Shapes
     'corners': {
         name: '4 ESQUINAS',
-        description: 'Four corners of the card',
-        positions: [[0,4,20,24]]
+        description: 'Las cuatro esquinas del cartón',
+        positions: [[0, 4, 20, 24]]
     },
 
     'frame': {
         name: 'MARCO',
-        description: 'Outer frame of the card',
-        positions: [[0,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5]]
+        description: 'Marco exterior del cartón',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24, 23, 22, 21, 20, 15, 10, 5]]
     },
 
     'diamond': {
         name: 'DIAMANTE',
-        description: 'Diamond shape',
-        positions: [[2,6,10,14,18,22]]
+        description: 'Forma de diamante',
+        positions: [[2, 6, 10, 14, 18, 22, 11, 13, 7, 17]]
     },
 
     // Letters
     'letter_x': {
         name: 'LETRA X',
-        description: 'X shape',
-        positions: [[0,6,12,18,24], [4,8,12,16,20]]
+        description: 'Dos diagonales cruzadas',
+        positions: [[0, 6, 12, 18, 24, 4, 8, 16, 20]]
     },
 
     'letter_t': {
         name: 'LETRA T',
-        description: 'T shape',
-        positions: [[0,1,2,3,4,7,12,17]]
+        description: 'T mayúscula',
+        positions: [[0, 5, 10, 15, 20, 11, 12, 13, 14]]
     },
 
     'letter_h': {
         name: 'LETRA H',
-        description: 'H shape',
-        positions: [[0,5,10,15,20,2,7,12,17,22,4,9,14,19,24]]
+        description: 'H mayúscula',
+        positions: [[0, 1, 2, 3, 4, 20, 21, 22, 23, 24, 7, 12, 17]]
     },
 
     'letter_o': {
         name: 'LETRA O',
-        description: 'O shape',
-        positions: [[1,2,3,5,9,10,14,15,19,21,22,23]]
+        description: 'O mayúscula',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24, 23, 22, 21, 20, 15, 10, 5]]
     },
 
     'letter_l': {
         name: 'LETRA L',
-        description: 'L shape',
-        positions: [[0,5,10,15,20,21,22,23,24]]
+        description: 'L mayúscula',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24]]
     },
 
     // Complex Patterns
     'cross': {
         name: 'CRUZ',
-        description: 'Cross through center',
-        positions: [[2,7,12,17,22]]
+        description: 'Cruz por el centro',
+        positions: [[2, 7, 12, 17, 22, 10, 11, 13, 14]]
     },
 
     'plus': {
         name: 'PLUS',
-        description: 'Plus sign',
-        positions: [[7,11,12,13,17]]
+        description: 'Signo más (+)',
+        positions: [[2, 7, 12, 17, 22, 10, 11, 13, 14]]
     },
 
     'star': {
         name: 'ESTRELLA',
-        description: 'Star shape',
-        positions: [[2,6,8,10,12,14,16,18,7,11,13,17]]
+        description: 'Forma de estrella',
+        positions: [[2, 6, 8, 10, 12, 14, 16, 18, 7, 11, 13, 17, 0, 4, 20, 24]]
     },
 
     'heart': {
         name: 'CORAZÓN',
-        description: 'Heart shape',
-        positions: [[1,3,6,7,8,9,11,12,13,16,18]]
+        description: 'Forma de corazón',
+        positions: [[5, 10, 15, 1, 3, 6, 7, 8, 11, 12, 13, 17, 22]]
     },
 
     'arrow': {
         name: 'FLECHA',
-        description: 'Arrow pointing up',
-        positions: [[2,7,10,11,12,13,14,17]]
+        description: 'Flecha hacia arriba',
+        positions: [[10, 11, 12, 13, 14, 1, 7, 17, 3]]
     },
 
-    // Additional Patterns to reach 50
     'zigzag': {
         name: 'ZIGZAG',
-        description: 'Zigzag pattern',
-        positions: [[0,2,4,6,8,10,12,14,16,18,20,22,24]]
+        description: 'Patrón en zigzag',
+        positions: [[0, 6, 10, 16, 20, 2, 8, 12, 18, 22, 4, 9, 14, 19, 24]]
     },
 
     'pyramid': {
         name: 'PIRÁMIDE',
-        description: 'Pyramid shape',
-        positions: [[2,6,7,8,10,11,12,13,14,16,17,18]]
+        description: 'Forma de pirámide',
+        positions: [[4, 9, 14, 19, 24, 3, 8, 13, 18, 2, 7, 12, 17, 11]]
     },
 
     'small_square': {
         name: 'CUADRADO PEQUEÑO',
-        description: 'Small 2x2 square',
-        positions: [[0,1,5,6]]
+        description: 'Cuadrado de 2x2',
+        positions: [[0, 1, 5, 6]]
     },
 
     'inner_frame': {
         name: 'MARCO INTERIOR',
-        description: 'Inner frame',
-        positions: [[6,7,8,11,13,16,17,18]]
+        description: 'Marco interior',
+        positions: [[6, 7, 8, 13, 18, 17, 16, 11]]
     },
 
     'corners_center': {
         name: 'ESQUINAS + CENTRO',
-        description: 'Four corners plus center',
-        positions: [[0,4,12,20,24]]
+        description: '4 esquinas más el centro',
+        positions: [[0, 4, 12, 20, 24]]
     },
 
-    // Pattern 20
     'horizontal_1': {
         name: 'FILA 1',
-        description: 'First horizontal row',
-        positions: [[0,5,10,15,20]]
+        description: 'Primera fila horizontal',
+        positions: [[0, 5, 10, 15, 20]]
     },
 
     'horizontal_2': {
         name: 'FILA 2',
-        description: 'Second horizontal row',
-        positions: [[1,6,11,16,21]]
+        description: 'Segunda fila horizontal',
+        positions: [[1, 6, 11, 16, 21]]
     },
 
     'horizontal_3': {
         name: 'FILA 3',
-        description: 'Third horizontal row',
-        positions: [[2,7,12,17,22]]
+        description: 'Tercera fila horizontal',
+        positions: [[2, 7, 12, 17, 22]]
     },
 
     'horizontal_4': {
         name: 'FILA 4',
-        description: 'Fourth horizontal row',
-        positions: [[3,8,13,18,23]]
+        description: 'Cuarta fila horizontal',
+        positions: [[3, 8, 13, 18, 23]]
     },
 
     'horizontal_5': {
         name: 'FILA 5',
-        description: 'Fifth horizontal row',
-        positions: [[4,9,14,19,24]]
+        description: 'Quinta fila horizontal',
+        positions: [[4, 9, 14, 19, 24]]
     },
 
-    // Pattern 25
     'vertical_b': {
         name: 'COLUMNA B',
-        description: 'B column',
-        positions: [[0,1,2,3,4]]
+        description: 'Columna B completa',
+        positions: [[0, 1, 2, 3, 4]]
     },
 
     'vertical_i': {
         name: 'COLUMNA I',
-        description: 'I column',
-        positions: [[5,6,7,8,9]]
+        description: 'Columna I completa',
+        positions: [[5, 6, 7, 8, 9]]
     },
 
     'vertical_n': {
         name: 'COLUMNA N',
-        description: 'N column',
-        positions: [[10,11,12,13,14]]
+        description: 'Columna N completa',
+        positions: [[10, 11, 12, 13, 14]]
     },
 
     'vertical_g': {
         name: 'COLUMNA G',
-        description: 'G column',
-        positions: [[15,16,17,18,19]]
+        description: 'Columna G completa',
+        positions: [[15, 16, 17, 18, 19]]
     },
 
     'vertical_o': {
         name: 'COLUMNA O',
-        description: 'O column',
-        positions: [[20,21,22,23,24]]
+        description: 'Columna O completa',
+        positions: [[20, 21, 22, 23, 24]]
     },
 
-    // Pattern 30
     'diagonal_main': {
         name: 'DIAGONAL PRINCIPAL',
-        description: 'Main diagonal',
-        positions: [[0,6,12,18,24]]
+        description: 'Diagonal de arriba-izquierda a abajo-derecha',
+        positions: [[0, 6, 12, 18, 24]]
     },
 
     'diagonal_secondary': {
         name: 'DIAGONAL SECUNDARIA',
-        description: 'Secondary diagonal',
-        positions: [[4,8,12,16,20]]
+        description: 'Diagonal de arriba-derecha a abajo-izquierda',
+        positions: [[4, 8, 12, 16, 20]]
     },
 
     'perimeter': {
         name: 'PERÍMETRO',
-        description: 'Complete perimeter',
-        positions: [[0,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5]]
+        description: 'Todo el borde exterior',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24, 23, 22, 21, 20, 15, 10, 5]]
     },
 
     'inner_perimeter': {
         name: 'PERÍMETRO INTERIOR',
-        description: 'Inner perimeter',
-        positions: [[6,7,8,11,13,16,17,18]]
+        description: 'Perímetro del cuadrado central',
+        positions: [[6, 7, 8, 13, 18, 17, 16, 11]]
     },
 
     'cross_center': {
         name: 'CRUZ CENTRAL',
-        description: 'Cross through center',
-        positions: [[7,11,12,13,17]]
+        description: 'Cruz que pasa por el centro',
+        positions: [[2, 7, 12, 17, 22, 10, 11, 13, 14]]
     },
 
-    // Pattern 35
     'letter_c': {
         name: 'LETRA C',
-        description: 'C shape',
-        positions: [[0,1,2,3,5,10,15,20,24,23,22,21]]
+        description: 'C mayúscula',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24, 5, 10, 15, 20]]
     },
 
     'letter_s': {
         name: 'LETRA S',
-        description: 'S shape',
-        positions: [[0,1,2,3,4,5,6,7,12,17,22,23,24]]
+        description: 'S mayúscula',
+        positions: [[0, 5, 10, 15, 20, 1, 2, 7, 12, 17, 22, 23, 24, 19, 14]]
     },
 
     'letter_z': {
         name: 'LETRA Z',
-        description: 'Z shape',
-        positions: [[0,1,2,3,4,9,14,19,24,23,22,21,20]]
+        description: 'Z mayúscula',
+        positions: [[0, 5, 10, 15, 20, 14, 18, 12, 6, 4, 9, 14, 19, 24]]
     },
 
     'letter_u': {
         name: 'LETRA U',
-        description: 'U shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,23,22,21,20]]
+        description: 'U mayúscula',
+        positions: [[0, 1, 2, 3, 4, 9, 14, 19, 24, 23, 22, 21, 20]]
     },
 
     'letter_v': {
         name: 'LETRA V',
-        description: 'V shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12]]
+        description: 'V mayúscula',
+        positions: [[0, 1, 2, 3, 4, 20, 21, 22, 12, 17, 23, 24]]
     },
 
-    // Pattern 40
     'letter_w': {
         name: 'LETRA W',
-        description: 'W shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12,7,2]]
+        description: 'W mayúscula',
+        positions: [[0, 1, 2, 3, 4, 20, 21, 22, 23, 24, 13, 12, 17, 7, 2, 1, 6, 11]]
     },
 
     'letter_m': {
         name: 'LETRA M',
-        description: 'M shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12,7,2,1,6,11]]
+        description: 'M mayúscula',
+        positions: [[0, 1, 2, 3, 4, 20, 21, 22, 23, 24, 6, 12, 18]]
     },
 
     'letter_n': {
         name: 'LETRA N',
-        description: 'N shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12,7,2]]
+        description: 'N mayúscula',
+        positions: [[0, 1, 2, 3, 4, 20, 21, 22, 23, 24, 6, 12, 18]]
     },
 
     'letter_p': {
         name: 'LETRA P',
-        description: 'P shape',
-        positions: [[0,5,10,15,20,1,6,11,16,21,2,7,12]]
+        description: 'P mayúscula',
+        positions: [[0, 1, 2, 3, 4, 5, 10, 6, 11, 2]]
     },
 
     'letter_e': {
         name: 'LETRA E',
-        description: 'E shape',
-        positions: [[0,1,2,3,4,5,10,15,20,6,11,16,21,7,12,17]]
+        description: 'E mayúscula',
+        positions: [[0, 1, 2, 3, 4, 5, 10, 15, 20, 12, 7, 17, 4, 9, 14, 19, 24]]
     },
 
-    // Pattern 45
     'letter_f': {
         name: 'LETRA F',
-        description: 'F shape',
-        positions: [[0,1,2,3,4,5,10,15,20,6,11,16,21]]
+        description: 'F mayúscula',
+        positions: [[0, 1, 2, 3, 4, 5, 10, 15, 20, 7, 12, 17]]
     },
 
     'letter_d': {
         name: 'LETRA D',
-        description: 'D shape',
-        positions: [[0,1,2,3,5,10,15,20,24,23,22,21,6,11,16,21]]
+        description: 'D mayúscula',
+        positions: [[0, 1, 2, 3, 4, 5, 10, 15, 21, 22, 23, 19, 14, 9]]
     },
 
     'letter_r': {
         name: 'LETRA R',
-        description: 'R shape',
-        positions: [[0,5,10,15,20,1,6,11,16,21,2,7,12,17,22]]
+        description: 'R mayúscula',
+        positions: [[0, 1, 2, 3, 4, 5, 10, 6, 11, 2, 13, 19]]
     },
 
     'letter_k': {
         name: 'LETRA K',
-        description: 'K shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12,7,2,13,18,23]]
+        description: 'K mayúscula',
+        positions: [[0, 1, 2, 3, 4, 12, 6, 18, 5, 19]]
     },
 
     'letter_y': {
         name: 'LETRA Y',
-        description: 'Y shape',
-        positions: [[0,5,10,15,20,4,9,14,19,24,12,7,2,13,18,23,11,6,1]]
+        description: 'Y mayúscula',
+        positions: [[0, 1, 2, 20, 21, 22, 12, 13, 14]]
     }
 };
 

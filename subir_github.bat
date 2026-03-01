@@ -5,7 +5,7 @@ echo 1. Inicializando Git...
 git init
 
 echo 2. Asegurando rama main...
-git branch -M main
+git branch -M master
 
 echo 3. Agregando archivos (esto puede tardar un poco)...
 git add .
@@ -15,7 +15,7 @@ git commit -m "Backup completo Yovanny Bingo V15 - Codigo Final"
 
 echo 5. Configurando repositorio remoto...
 git remote remove origin 2>nul
-git remote add origin https://github.com/respaldoxtech-cmd/JOVANNYBINGO2.git
+git remote add origin https://github.com/enderrdz/ubing.git
 
 echo 6. Subiendo a GitHub...
 git push -u origin main
